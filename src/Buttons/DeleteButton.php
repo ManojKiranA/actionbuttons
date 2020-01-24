@@ -315,6 +315,26 @@ class DeleteButton implements DeleteButtonContract
     }
 
     /**
+     * Get the Tooltip with options if the
+     * tooltip value is set 
+     *
+     * @return array
+     **/
+    public function getButtonOptionParameters()
+    {
+        $buttonOptions['type'] = 'submit';
+        $buttonOptions['class'] = $this->class;
+
+        if ($this->toolTip):
+            $buttonOptions['data-toggle'] = 'tooltip';
+            $buttonOptions['data-placement'] = $this->toolTipPosition;
+            $buttonOptions['title'] = $this->toolTip;
+        endif;
+
+        return $buttonOptions;
+    }
+
+    /**
      * Get the Html representation of the Button.
      *
      * @return \Illuminate\Support\HtmlString
@@ -364,16 +384,7 @@ class DeleteButton implements DeleteButtonContract
         if ($delteButtonVal->buttonName):
             $formButtonName = $delteButtonVal->buttonName;
         endif;
-
-        $buttonToolTip['type'] = 'submit';
-        $buttonToolTip['class'] = $delteButtonVal->buttonClass;
-
-        if ($this->getToolTip()):
-            $buttonToolTip['data-toggle'] = 'tooltip';
-        $buttonToolTip['data-placement'] = $delteButtonVal->toolTipPosition;
-        $buttonToolTip['title'] = $delteButtonVal->toolTip;
-        endif;
-
+        
         if ($delteButtonVal->buttonName):
             $formButtonName = $delteButtonVal->buttonName;
         endif;
@@ -381,11 +392,11 @@ class DeleteButton implements DeleteButtonContract
         try {
             $deleteButton = Form::open($this->getAtttributesForOpeningForm());
             $deleteButton .= method_field('DELETE');
-            $deleteButton .= Form::button($formButtonIcon.$formButtonName, $buttonToolTip);
+            $deleteButton .= Form::button($formButtonIcon.$formButtonName, $this->getButtonOptionParameters());
             $deleteButton .= Form::close();
         } catch (BaseException $baseException) {
 
-            dd($baseException);
+            return $baseException->getMessage();
         }
         
 
