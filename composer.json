@@ -1,0 +1,43 @@
+{
+    "name": "manojkiran/actionbuttons",
+    "description": "Most commanly used buttons in Laravel for CRUD operations",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Manojkiran Appathurai",
+            "email": "manojkiran10031998@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable" : true,
+    "require": {
+        "illuminate/database": "^5.8|^6.0",
+        "illuminate/support": "^5.8|^6.0",
+        "laravelcollective/html": "^5.8|^6.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^3.8|^4.0",
+        "phpunit/phpunit": "^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Manojkiran\\ActionButtons\\":"src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Manojkiran\\ActionButtons\\Tests\\":"tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Manojkiran\\ActionButtons\\ActionServiceProvider"
+            ],
+            "aliases": {
+                "ActionButton": "Manojkiran\\ActionButtons\\Facades\\ActionButton"
+            }
+        }
+    }
+}
