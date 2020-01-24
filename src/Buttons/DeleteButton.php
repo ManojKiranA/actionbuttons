@@ -287,12 +287,11 @@ class DeleteButton implements DeleteButtonContract
     {
         $fullRouteAction[] = $this->routeAction;
 
-        if ($this->routeParameter && $this->routeParameter !== []):
-            foreach ($this->routeParameter as $eachParm => $eachValue):
+        if ($this->routeParameter && $this->routeParameter !== []){
+            foreach ($this->routeParameter as $eachParm => $eachValue){
                 $fullRouteAction[$eachParm] = $eachValue;
-        endforeach;
-        endif;
-
+            }
+        }
         return $fullRouteAction;
     }
 
@@ -306,10 +305,10 @@ class DeleteButton implements DeleteButtonContract
     {
         $formOpen['route'] = $this->getRouteNameWithParameters();
 
-        if ($this->deleteConfirmation):
-            $formOpen['style'] = 'display:inline';
+        if ($this->deleteConfirmation){
+        $formOpen['style'] = 'display:inline';
         $formOpen['onSubmit'] = 'return confirm("'.$this->deleteConfirmation.'")';
-        endif;
+        }
 
         return $formOpen;
     }
@@ -325,11 +324,11 @@ class DeleteButton implements DeleteButtonContract
         $buttonOptions['type'] = 'submit';
         $buttonOptions['class'] = $this->class;
 
-        if ($this->toolTip):
+        if ($this->toolTip){
         $buttonOptions['data-toggle'] = 'tooltip';
         $buttonOptions['data-placement'] = $this->toolTipPosition;
         $buttonOptions['title'] = $this->toolTip;
-        endif;
+        }
 
         return $buttonOptions;
     }
@@ -344,15 +343,15 @@ class DeleteButton implements DeleteButtonContract
     {
         $formButtonIcon = null;
 
-        if ($this->icon):
+        if ($this->icon){
             $formButtonIcon = '<i class="'.$this->icon.'"></i>';
-        endif;
+        }
 
         $formButtonName = null;
 
-        if ($this->buttonName):
+        if ($this->buttonName){
             $formButtonName = $this->buttonName;
-        endif;
+        }
 
         return $formButtonIcon.$formButtonName;
     }
