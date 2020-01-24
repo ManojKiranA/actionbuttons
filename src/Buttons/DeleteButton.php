@@ -279,25 +279,25 @@ class DeleteButton implements DeleteButtonContract
     }
 
     /**
-     * Get the route name with paramaters
+     * Get the route name with paramaters.
      *
      * @return array
      **/
-    public function getRouteNameWithParameters():array
+    public function getRouteNameWithParameters(): array
     {
         $fullRouteAction[] = $this->routeAction;
 
         if ($this->routeParameter && $this->routeParameter !== []):
             foreach ($this->routeParameter as $eachParm => $eachValue):
                 $fullRouteAction[$eachParm] = $eachValue;
-            endforeach;
+        endforeach;
         endif;
 
         return $fullRouteAction;
     }
 
     /**
-     * Get all the Props to open a form
+     * Get all the Props to open a form.
      *
      *
      * @return array
@@ -316,7 +316,7 @@ class DeleteButton implements DeleteButtonContract
 
     /**
      * Get the Tooltip with options if the
-     * tooltip value is set 
+     * tooltip value is set.
      *
      * @return array
      **/
@@ -327,8 +327,8 @@ class DeleteButton implements DeleteButtonContract
 
         if ($this->toolTip):
             $buttonOptions['data-toggle'] = 'tooltip';
-            $buttonOptions['data-placement'] = $this->toolTipPosition;
-            $buttonOptions['title'] = $this->toolTip;
+        $buttonOptions['data-placement'] = $this->toolTipPosition;
+        $buttonOptions['title'] = $this->toolTip;
         endif;
 
         return $buttonOptions;
@@ -371,8 +371,6 @@ class DeleteButton implements DeleteButtonContract
         ];
         $delteButtonVal = (object) $delteButtonVal;
 
-        
-
         $formButtonIcon = null;
 
         if ($delteButtonVal->buttonIcon):
@@ -384,7 +382,7 @@ class DeleteButton implements DeleteButtonContract
         if ($delteButtonVal->buttonName):
             $formButtonName = $delteButtonVal->buttonName;
         endif;
-        
+
         if ($delteButtonVal->buttonName):
             $formButtonName = $delteButtonVal->buttonName;
         endif;
@@ -395,10 +393,8 @@ class DeleteButton implements DeleteButtonContract
             $deleteButton .= Form::button($formButtonIcon.$formButtonName, $this->getButtonOptionParameters());
             $deleteButton .= Form::close();
         } catch (BaseException $baseException) {
-
             return $baseException->getMessage();
         }
-        
 
         return new HtmlString($deleteButton);
     }
