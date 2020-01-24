@@ -5,9 +5,9 @@ namespace Manojkiran\ActionButtons\Buttons;
 use Collective\Html\FormFacade as Form;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\HtmlString;
-use Manojkiran\ActionButtons\Contracts\Button;
+use Manojkiran\ActionButtons\Contracts\DeleteButtonContract;
 
-class DeleteButton implements Button
+class DeleteButton implements DeleteButtonContract
 {
     /**
      * Name of the Button to be Used for Deletion.
