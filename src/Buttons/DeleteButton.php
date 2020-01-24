@@ -90,7 +90,7 @@ class DeleteButton implements Button
      *
      * @return  string
      */
-    public function getButtonName()
+    public function getButtonName():string
     {
         return $this->buttonName;
     }
@@ -114,7 +114,7 @@ class DeleteButton implements Button
      *
      * @return  string
      */
-    public function getRouteAction()
+    public function getRouteAction():string
     {
         return $this->routeAction;
     }
@@ -138,7 +138,7 @@ class DeleteButton implements Button
      *
      * @return  string|bool
      */
-    public function getDeleteConfirmation()
+    public function getDeleteConfirmation():string
     {
         return $this->deleteConfirmation;
     }
@@ -162,7 +162,7 @@ class DeleteButton implements Button
      *
      * @return  string|bool
      */
-    public function getToolTip()
+    public function getToolTip():string
     {
         return $this->toolTip;
     }
@@ -174,7 +174,7 @@ class DeleteButton implements Button
      *
      * @return  $this
      */
-    public function setToolTip($toolTip)
+    public function setToolTip(string $toolTip)
     {
         $this->toolTip = $toolTip;
 
@@ -186,7 +186,7 @@ class DeleteButton implements Button
      *
      * @return  string|bool
      */
-    public function getToolTipPosition()
+    public function getToolTipPosition():string
     {
         return $this->toolTipPosition;
     }
@@ -210,7 +210,7 @@ class DeleteButton implements Button
      *
      * @return  string
      */
-    public function getIcon()
+    public function getIcon():string
     {
         return $this->icon;
     }
@@ -234,7 +234,7 @@ class DeleteButton implements Button
      *
      * @return  string
      */
-    public function getClass()
+    public function getClass():string
     {
         return $this->class;
     }
@@ -258,7 +258,7 @@ class DeleteButton implements Button
      *
      * @return  array
      */
-    public function getRouteParameter()
+    public function getRouteParameter():array
     {
         return $this->routeParameter;
     }
