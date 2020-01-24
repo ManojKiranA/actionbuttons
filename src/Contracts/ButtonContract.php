@@ -45,7 +45,6 @@ interface ButtonContract
      */
     public function setRouteAction(string $routeAction);
 
-
     /**
      * Get set the Tooltip.
      *
