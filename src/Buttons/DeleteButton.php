@@ -3,6 +3,7 @@
 namespace Manojkiran\ActionButtons\Buttons;
 
 use Collective\Html\FormFacade as Form;
+use Exception as BaseException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\HtmlString;
 use Manojkiran\ActionButtons\Contracts\DeleteButtonContract;
@@ -278,6 +279,42 @@ class DeleteButton implements DeleteButtonContract
     }
 
     /**
+     * Get the route name with paramaters
+     *
+     * @return array
+     **/
+    public function getRouteNameWithParameters():array
+    {
+        $fullRouteAction[] = $this->routeAction;
+
+        if ($this->routeParameter && $this->routeParameter !== []):
+            foreach ($this->routeParameter as $eachParm => $eachValue):
+                $fullRouteAction[$eachParm] = $eachValue;
+            endforeach;
+        endif;
+
+        return $fullRouteAction;
+    }
+
+    /**
+     * Get all the Props to open a form
+     *
+     *
+     * @return array
+     **/
+    public function getAtttributesForOpeningForm()
+    {
+        $formOpen['route'] = $this->getRouteNameWithParameters();
+
+        if ($this->deleteConfirmation) {
+            $formOpen['style'] = 'display:inline';
+            $formOpen['onSubmit'] = 'return confirm("'.$this->deleteConfirmation.'")';
+        }
+
+        return $formOpen;
+    }
+
+    /**
      * Get the Html representation of the Button.
      *
      * @return \Illuminate\Support\HtmlString
@@ -312,24 +349,9 @@ class DeleteButton implements DeleteButtonContract
             //Tooltip Title used for the Button
             'toolTip' => $this->getToolTip(),
         ];
-
-        $routeParms = $this->getRouteParameter();
         $delteButtonVal = (object) $delteButtonVal;
 
-        $fullRouteAction[] = $delteButtonVal->routeName;
-
-        if ($routeParms && $routeParms !== []):
-            foreach ($routeParms as $eachParm => $eachValue):
-                $fullRouteAction[$eachParm] = $eachValue;
-        endforeach;
-        endif;
-
-        $formOpen['route'] = $fullRouteAction;
-
-        if ($this->getDeleteConfirmation()) {
-            $formOpen['style'] = 'display:inline';
-            $formOpen['onSubmit'] = 'return confirm("'.$delteButtonVal->popUpDialog.'")';
-        }
+        
 
         $formButtonIcon = null;
 
@@ -356,10 +378,16 @@ class DeleteButton implements DeleteButtonContract
             $formButtonName = $delteButtonVal->buttonName;
         endif;
 
-        $deleteButton = Form::open($formOpen);
-        $deleteButton .= method_field('DELETE');
-        $deleteButton .= Form::button($formButtonIcon.$formButtonName, $buttonToolTip);
-        $deleteButton .= Form::close();
+        try {
+            $deleteButton = Form::open($this->getAtttributesForOpeningForm());
+            $deleteButton .= method_field('DELETE');
+            $deleteButton .= Form::button($formButtonIcon.$formButtonName, $buttonToolTip);
+            $deleteButton .= Form::close();
+        } catch (BaseException $baseException) {
+
+            dd($baseException);
+        }
+        
 
         return new HtmlString($deleteButton);
     }
