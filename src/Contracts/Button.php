@@ -1,6 +1,5 @@
 <?php
 
-
 /*
  * This file is part of the ActionButtons package.
  *
@@ -10,12 +9,11 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Manojkiran\ActionButtons\Contracts;
 
 interface Button
 {
-     /**
+    /**
      * Get the name of the Button.
      *
      * @return string
@@ -42,5 +40,4 @@ interface Button
      * @return string
      */
     public function setRouteAction(string $buttonName);
-
 }

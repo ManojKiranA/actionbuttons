@@ -21,4 +21,3 @@ class ActionButton
         return new DeleteButton($model);
     }
 }
-

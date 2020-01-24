@@ -1,6 +1,5 @@
 <?php
 
-
 /*
  * This file is part of the ActionButtons package.
  *
@@ -21,4 +20,3 @@ class ActionButton extends Facade
         return 'Action';
     }
 }
-

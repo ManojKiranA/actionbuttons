@@ -2,14 +2,14 @@
 
 namespace Manojkiran\ActionButtons\Buttons;
 
-use Illuminate\Database\Eloquent\Model;
-use Manojkiran\ActionButtons\Contracts\Button;
-use Illuminate\Support\HtmlString;
 use Collective\Html\FormFacade as Form;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\HtmlString;
+use Manojkiran\ActionButtons\Contracts\Button;
 
 class DeleteButton implements Button
 {
-     /**
+    /**
      * Name of the Button to be Used for Deletion.
      *
      * @var string
@@ -47,11 +47,11 @@ class DeleteButton implements Button
     /**
      * Set the Tooltip.
      * For setting the Postion see
-     * https://getbootstrap.com/docs/4.4/components/tooltips/#options
+     * https://getbootstrap.com/docs/4.4/components/tooltips/#options.
      *
      * @var string|bool
      */
-    protected $toolTipPosition= 'top';
+    protected $toolTipPosition = 'top';
 
     /**
      * Route Name which is used for Deletion.
@@ -75,7 +75,7 @@ class DeleteButton implements Button
     protected $model;
 
     /**
-     * Create a New Delete Button Instance
+     * Create a New Delete Button Instance.
      *
      * @param \Illuminate\Database\Eloquent\Model $model
      * @return void
@@ -89,7 +89,7 @@ class DeleteButton implements Button
      * Get name of the Button to be Used for Deletion.
      *
      * @return  string
-     */ 
+     */
     public function getButtonName()
     {
         return $this->buttonName;
@@ -101,7 +101,7 @@ class DeleteButton implements Button
      * @param  string  $buttonName  Name of the Button to be Used for Deletion.
      *
      * @return  $this
-     */ 
+     */
     public function setButtonName(string $buttonName)
     {
         $this->buttonName = $buttonName;
@@ -113,7 +113,7 @@ class DeleteButton implements Button
      * Get route Name which is used for Deletion.
      *
      * @return  string
-     */ 
+     */
     public function getRouteAction()
     {
         return $this->routeAction;
@@ -125,19 +125,19 @@ class DeleteButton implements Button
      * @param  string  $routeAction  Route Name which is used for Deletion.
      *
      * @return  self
-     */ 
+     */
     public function setRouteAction(string $routeAction)
     {
         $this->routeAction = $routeAction;
 
         return $this;
-    }    
+    }
 
     /**
      * Get set the Confirmation.
      *
      * @return  string|bool
-     */ 
+     */
     public function getDeleteConfirmation()
     {
         return $this->deleteConfirmation;
@@ -149,7 +149,7 @@ class DeleteButton implements Button
      * @param  string|bool  $deleteConfirmation  Set the Confirmation.
      *
      * @return  $this
-     */ 
+     */
     public function setDeleteConfirmation($deleteConfirmation)
     {
         $this->deleteConfirmation = $deleteConfirmation;
@@ -161,7 +161,7 @@ class DeleteButton implements Button
      * Get set the Tooltip.
      *
      * @return  string|bool
-     */ 
+     */
     public function getToolTip()
     {
         return $this->toolTip;
@@ -173,7 +173,7 @@ class DeleteButton implements Button
      * @param  string|bool  $toolTip  Set the Tooltip.
      *
      * @return  $this
-     */ 
+     */
     public function setToolTip($toolTip)
     {
         $this->toolTip = $toolTip;
@@ -181,25 +181,23 @@ class DeleteButton implements Button
         return $this;
     }
 
-    
-
     /**
-     * Get https://getbootstrap.com/docs/4.4/components/tooltips/#options
+     * Get https://getbootstrap.com/docs/4.4/components/tooltips/#options.
      *
      * @return  string|bool
-     */ 
+     */
     public function getToolTipPosition()
     {
         return $this->toolTipPosition;
     }
 
     /**
-     * Set https://getbootstrap.com/docs/4.4/components/tooltips/#options
+     * Set https://getbootstrap.com/docs/4.4/components/tooltips/#options.
      *
      * @param  string|bool  $toolTipPosition  https://getbootstrap.com/docs/4.4/components/tooltips/#options
      *
      * @return  self
-     */ 
+     */
     public function setToolTipPosition($toolTipPosition)
     {
         $this->toolTipPosition = $toolTipPosition;
@@ -211,7 +209,7 @@ class DeleteButton implements Button
      * Get icon for Delete button.
      *
      * @return  string
-     */ 
+     */
     public function getIcon()
     {
         return $this->icon;
@@ -223,7 +221,7 @@ class DeleteButton implements Button
      * @param  string  $icon  Icon for Delete button.
      *
      * @return  self
-     */ 
+     */
     public function setIcon(string $icon)
     {
         $this->icon = $icon;
@@ -231,13 +229,11 @@ class DeleteButton implements Button
         return $this;
     }
 
-    
-
     /**
      * Get class of the Delete button.
      *
      * @return  string
-     */ 
+     */
     public function getClass()
     {
         return $this->class;
@@ -249,7 +245,7 @@ class DeleteButton implements Button
      * @param  string  $class  Class of the Delete button.
      *
      * @return  self
-     */ 
+     */
     public function setClass(string $class)
     {
         $this->class = $class;
@@ -257,12 +253,11 @@ class DeleteButton implements Button
         return $this;
     }
 
-    
     /**
      * Get route Parameter which is used for Deletion.
      *
      * @return  array
-     */ 
+     */
     public function getRouteParameter()
     {
         return $this->routeParameter;
@@ -274,7 +269,7 @@ class DeleteButton implements Button
      * @param  array  $routeParameter  Route Parameter which is used for Deletion.
      *
      * @return  self
-     */ 
+     */
     public function setRouteParameter(array $routeParameter)
     {
         $this->routeParameter = $routeParameter;
@@ -283,15 +278,15 @@ class DeleteButton implements Button
     }
 
     /**
-     * Get the Html representation of the Button
+     * Get the Html representation of the Button.
      *
      * @return \Illuminate\Support\HtmlString
      **/
-    public function get():HtmlString
+    public function get(): HtmlString
     {
         //@todo Refactor This
-        
-        $delteButtonVal =  [
+
+        $delteButtonVal = [
 
             //Route Action to be used for Deletion
             'routeName' => $this->getRouteAction(),
@@ -307,7 +302,7 @@ class DeleteButton implements Button
 
             //Text to be Displayed for Delete button
             'buttonName' => $this->getButtonName(),
-            
+
             //class name for the deletebutton
             'buttonClass' => $this->getClass(),
 
@@ -323,54 +318,49 @@ class DeleteButton implements Button
 
         $fullRouteAction[] = $delteButtonVal->routeName;
 
-        if($routeParms && $routeParms !== []):
-            foreach($routeParms as $eachParm => $eachValue):
+        if ($routeParms && $routeParms !== []):
+            foreach ($routeParms as $eachParm => $eachValue):
                 $fullRouteAction[$eachParm] = $eachValue;
-            endforeach;
-        endif; 
+        endforeach;
+        endif;
 
         $formOpen['route'] = $fullRouteAction;
 
-        if($this->getDeleteConfirmation())
-        {
+        if ($this->getDeleteConfirmation()) {
             $formOpen['style'] = 'display:inline';
-            $formOpen['onSubmit'] = 'return confirm("' . $delteButtonVal->popUpDialog . '")';
+            $formOpen['onSubmit'] = 'return confirm("'.$delteButtonVal->popUpDialog.'")';
         }
 
         $formButtonIcon = null;
 
-        if($delteButtonVal->buttonIcon):
-            $formButtonIcon = '<i class="' . $delteButtonVal->buttonIcon .'"></i>';
+        if ($delteButtonVal->buttonIcon):
+            $formButtonIcon = '<i class="'.$delteButtonVal->buttonIcon.'"></i>';
         endif;
 
         $formButtonName = null;
 
-        if($delteButtonVal->buttonName):
+        if ($delteButtonVal->buttonName):
             $formButtonName = $delteButtonVal->buttonName;
         endif;
-
 
         $buttonToolTip['type'] = 'submit';
         $buttonToolTip['class'] = $delteButtonVal->buttonClass;
 
-        if($this->getToolTip()):
+        if ($this->getToolTip()):
             $buttonToolTip['data-toggle'] = 'tooltip';
-            $buttonToolTip['data-placement'] = $delteButtonVal->toolTipPosition;
-            $buttonToolTip['title'] = $delteButtonVal->toolTip;
-        endif;        
+        $buttonToolTip['data-placement'] = $delteButtonVal->toolTipPosition;
+        $buttonToolTip['title'] = $delteButtonVal->toolTip;
+        endif;
 
-        if($delteButtonVal->buttonName):
+        if ($delteButtonVal->buttonName):
             $formButtonName = $delteButtonVal->buttonName;
         endif;
 
-
         $deleteButton = Form::open($formOpen);
         $deleteButton .= method_field('DELETE');
-        $deleteButton .= Form::button($formButtonIcon.$formButtonName,$buttonToolTip);
+        $deleteButton .= Form::button($formButtonIcon.$formButtonName, $buttonToolTip);
         $deleteButton .= Form::close();
 
         return new HtmlString($deleteButton);
     }
-
 }
-
