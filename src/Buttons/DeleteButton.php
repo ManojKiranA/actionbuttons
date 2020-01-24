@@ -306,10 +306,10 @@ class DeleteButton implements DeleteButtonContract
     {
         $formOpen['route'] = $this->getRouteNameWithParameters();
 
-        if ($this->deleteConfirmation) {
+        if ($this->deleteConfirmation):
             $formOpen['style'] = 'display:inline';
             $formOpen['onSubmit'] = 'return confirm("'.$this->deleteConfirmation.'")';
-        }
+        endif;
 
         return $formOpen;
     }
@@ -326,7 +326,7 @@ class DeleteButton implements DeleteButtonContract
         $buttonOptions['class'] = $this->class;
 
         if ($this->toolTip):
-            $buttonOptions['data-toggle'] = 'tooltip';
+        $buttonOptions['data-toggle'] = 'tooltip';
         $buttonOptions['data-placement'] = $this->toolTipPosition;
         $buttonOptions['title'] = $this->toolTip;
         endif;
@@ -335,64 +335,42 @@ class DeleteButton implements DeleteButtonContract
     }
 
     /**
+     * Get the Button text with icon if is Set
+     *
+     *
+     * @return string
+     **/
+    public function getButtonNameWithParameters()
+    {
+        $formButtonIcon = null;
+
+        if ($this->icon):
+            $formButtonIcon = '<i class="'.$this->icon.'"></i>';
+        endif;
+
+        $formButtonName = null;
+
+        if ($this->buttonName):
+            $formButtonName = $this->buttonName;
+        endif;
+
+        return $formButtonIcon.$formButtonName;
+    }
+
+    /**
      * Get the Html representation of the Button.
      *
      * @return \Illuminate\Support\HtmlString
      **/
     public function get(): HtmlString
-    {
-        //@todo Refactor This
-
-        $delteButtonVal = [
-
-            //Route Action to be used for Deletion
-            'routeName' => $this->getRouteAction(),
-
-            //Route Action to be used for Deletion
-            'routeParameter' => $this->getRouteParameter(),
-
-            //dialog Which needs to be displayes while deleting the record
-            'popUpDialog' => $this->getDeleteConfirmation(),
-
-            //Icon for the delete Button
-            'buttonIcon' => $this->getIcon(),
-
-            //Text to be Displayed for Delete button
-            'buttonName' => $this->getButtonName(),
-
-            //class name for the deletebutton
-            'buttonClass' => $this->getClass(),
-
-            //here you can specify the position of tooltip
-            'toolTipPosition' => $this->getToolTipPosition(),
-
-            //Tooltip Title used for the Button
-            'toolTip' => $this->getToolTip(),
-        ];
-        $delteButtonVal = (object) $delteButtonVal;
-
-        $formButtonIcon = null;
-
-        if ($delteButtonVal->buttonIcon):
-            $formButtonIcon = '<i class="'.$delteButtonVal->buttonIcon.'"></i>';
-        endif;
-
-        $formButtonName = null;
-
-        if ($delteButtonVal->buttonName):
-            $formButtonName = $delteButtonVal->buttonName;
-        endif;
-
-        if ($delteButtonVal->buttonName):
-            $formButtonName = $delteButtonVal->buttonName;
-        endif;
-
+    {       
         try {
             $deleteButton = Form::open($this->getAtttributesForOpeningForm());
             $deleteButton .= method_field('DELETE');
-            $deleteButton .= Form::button($formButtonIcon.$formButtonName, $this->getButtonOptionParameters());
+            $deleteButton .= Form::button($this->getButtonNameWithParameters(), $this->getButtonOptionParameters());
             $deleteButton .= Form::close();
         } catch (BaseException $baseException) {
+            
             return $baseException->getMessage();
         }
 
