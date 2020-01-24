@@ -90,7 +90,7 @@ class DeleteButton implements Button
      *
      * @return  string
      */
-    public function getButtonName():string
+    public function getButtonName(): string
     {
         return $this->buttonName;
     }
@@ -114,7 +114,7 @@ class DeleteButton implements Button
      *
      * @return  string
      */
-    public function getRouteAction():string
+    public function getRouteAction(): string
     {
         return $this->routeAction;
     }
@@ -138,7 +138,7 @@ class DeleteButton implements Button
      *
      * @return  string|bool
      */
-    public function getDeleteConfirmation():string
+    public function getDeleteConfirmation(): string
     {
         return $this->deleteConfirmation;
     }
@@ -162,7 +162,7 @@ class DeleteButton implements Button
      *
      * @return  string|bool
      */
-    public function getToolTip():string
+    public function getToolTip(): string
     {
         return $this->toolTip;
     }
@@ -186,7 +186,7 @@ class DeleteButton implements Button
      *
      * @return  string|bool
      */
-    public function getToolTipPosition():string
+    public function getToolTipPosition(): string
     {
         return $this->toolTipPosition;
     }
@@ -210,7 +210,7 @@ class DeleteButton implements Button
      *
      * @return  string
      */
-    public function getIcon():string
+    public function getIcon(): string
     {
         return $this->icon;
     }
@@ -234,7 +234,7 @@ class DeleteButton implements Button
      *
      * @return  string
      */
-    public function getClass():string
+    public function getClass(): string
     {
         return $this->class;
     }
@@ -258,7 +258,7 @@ class DeleteButton implements Button
      *
      * @return  array
      */
-    public function getRouteParameter():array
+    public function getRouteParameter(): array
     {
         return $this->routeParameter;
     }
@@ -347,9 +347,9 @@ class DeleteButton implements Button
         $buttonToolTip['class'] = $delteButtonVal->buttonClass;
 
         if ($this->getToolTip()):
-            $buttonToolTip['data-toggle']   = 'tooltip';
-            $buttonToolTip['data-placement'] =  $delteButtonVal->toolTipPosition;
-            $buttonToolTip['title']          =  $delteButtonVal->toolTip;
+            $buttonToolTip['data-toggle'] = 'tooltip';
+        $buttonToolTip['data-placement'] = $delteButtonVal->toolTipPosition;
+        $buttonToolTip['title'] = $delteButtonVal->toolTip;
         endif;
 
         if ($delteButtonVal->buttonName):
