@@ -308,7 +308,7 @@ class DeleteButton implements DeleteButtonContract
 
         if ($this->deleteConfirmation):
             $formOpen['style'] = 'display:inline';
-            $formOpen['onSubmit'] = 'return confirm("'.$this->deleteConfirmation.'")';
+        $formOpen['onSubmit'] = 'return confirm("'.$this->deleteConfirmation.'")';
         endif;
 
         return $formOpen;
@@ -335,7 +335,7 @@ class DeleteButton implements DeleteButtonContract
     }
 
     /**
-     * Get the Button text with icon if is Set
+     * Get the Button text with icon if is Set.
      *
      *
      * @return string
@@ -363,14 +363,13 @@ class DeleteButton implements DeleteButtonContract
      * @return \Illuminate\Support\HtmlString
      **/
     public function get(): HtmlString
-    {       
+    {
         try {
             $deleteButton = Form::open($this->getAtttributesForOpeningForm());
             $deleteButton .= method_field('DELETE');
             $deleteButton .= Form::button($this->getButtonNameWithParameters(), $this->getButtonOptionParameters());
             $deleteButton .= Form::close();
         } catch (BaseException $baseException) {
-            
             return $baseException->getMessage();
         }
 
