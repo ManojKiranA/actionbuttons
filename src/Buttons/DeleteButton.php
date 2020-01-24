@@ -348,8 +348,8 @@ class DeleteButton implements Button
 
         if ($this->getToolTip()):
             $buttonToolTip['data-toggle'] = 'tooltip';
-        $buttonToolTip['data-placement'] = $delteButtonVal->toolTipPosition;
-        $buttonToolTip['title'] = $delteButtonVal->toolTip;
+            $buttonToolTip['data-placement'] = $delteButtonVal->toolTipPosition;
+            $buttonToolTip['title'] = $delteButtonVal->toolTip;
         endif;
 
         if ($delteButtonVal->buttonName):
