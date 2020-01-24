@@ -11,6 +11,8 @@
 
 namespace Manojkiran\ActionButtons\Contracts;
 
+use Illuminate\Support\HtmlString;
+
 interface ButtonContract
 {
     /**
@@ -124,4 +126,11 @@ interface ButtonContract
      * @return  self
      */
     public function setRouteParameter(array $routeParameter);
+
+    /**
+     * Get the Html representation of the Button.
+     *
+     * @return \Illuminate\Support\HtmlString
+     **/
+    public function get():HtmlString;
 }
