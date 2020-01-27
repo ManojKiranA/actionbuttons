@@ -18,8 +18,8 @@ abstract class BaseTestCase extends Orchestra
 
         $this->withoutExceptionHandling();
     }
-    
-     /**
+
+    /**
      * Get package providers.
      *
      * @param  \Illuminate\Foundation\Application  $app
@@ -36,8 +36,8 @@ abstract class BaseTestCase extends Orchestra
     protected function getPackageAliases($app)
     {
         return [
-            "Form" => "Collective\Html\FormFacade",
-            "Html" => "Collective\Html\HtmlFacade"
+            'Form' => "Collective\Html\FormFacade",
+            'Html' => "Collective\Html\HtmlFacade",
         ];
     }
 
