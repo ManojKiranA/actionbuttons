@@ -6,6 +6,7 @@ use Collective\Html\FormFacade as Form;
 use Illuminate\Support\Collection;
 use Illuminate\Support\HtmlString;
 use Manojkiran\ActionButtons\Contracts\DeleteButtonContract;
+use Manojkiran\ActionButtons\Exceptions\AmbiguousRouteActionFound;
 use Manojkiran\ActionButtons\Exceptions\ButtonNameAndIconNotSetException;
 
 class DeleteButton implements DeleteButtonContract
@@ -274,8 +275,16 @@ class DeleteButton implements DeleteButtonContract
      **/
     public function getAtttributesForOpeningForm()
     {
-        $formOpen['route'] = $this->getRouteAction();
+        if($this->getRouteAction()){
+            $formOpen['route'] = $this->getRouteAction();
+        }
 
+        if($this->getUrlAction()){
+            $formOpen['url'] = $this->getUrlAction();
+        }
+
+        throw_if(count($formOpen) > 1,AmbiguousRouteActionFound::class);
+        
         if ($this->deleteConfirmation) {
             $formOpen['style'] = 'display:inline';
             $formOpen['onSubmit'] = 'return confirm("'.$this->deleteConfirmation.'")';
@@ -336,8 +345,6 @@ class DeleteButton implements DeleteButtonContract
      **/
     public function get(): HtmlString
     {
-        dd($this);
-        
         $deleteButton = Form::open($this->getAtttributesForOpeningForm());
         $deleteButton .= method_field('DELETE');
         $deleteButton .= Form::button($this->getButtonNameWithParameters(), $this->getButtonOptionParameters());
