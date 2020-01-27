@@ -13,6 +13,7 @@ namespace Manojkiran\ActionButtons;
 
 use Collective\Html\FormBuilder;
 use Collective\Html\HtmlBuilder;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route as RouteFacade;
 use Illuminate\Support\ServiceProvider;
 use Manojkiran\ActionButtons\TestCases\Controllers\PostController;
@@ -35,7 +36,8 @@ class ActionServiceProvider extends ServiceProvider
         $this->registerFormBuilder();
 
         $this->app->alias('html', HtmlBuilder::class);
-        $this->app->alias('form', FormBuilder::class);
+
+                $this->app->alias('form', FormBuilder::class);
     }
 
     /**
@@ -45,7 +47,10 @@ class ActionServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->bootRoutes();
+        if(App::runningUnitTests())
+        {
+            $this->bootRoutes();
+        }
     }
 
     public function bootRoutes()
