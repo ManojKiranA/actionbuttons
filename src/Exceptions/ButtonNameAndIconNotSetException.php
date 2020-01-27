@@ -23,7 +23,7 @@ class ButtonNameAndIconNotSetException extends BaseException
      * @param BaseException $previous
      * @return void
      **/
-    public function __construct(string $message = 'Either you need to set text for button or icon for button', int $code = 0, BaseException $previous = null)
+    public function __construct(string $message = 'Either you need to set text for button or icon for button', int $code = 1, BaseException $previous = null)
     {
         parent::__construct($message, $code, $previous);
     }

@@ -11,7 +11,11 @@
 
 namespace Manojkiran\ActionButtons;
 
+use Collective\Html\FormBuilder;
+use Collective\Html\HtmlBuilder;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Route as RouteFacade;
+use Manojkiran\ActionButtons\TestCases\Controllers\PostController;
 
 class ActionServiceProvider extends ServiceProvider
 {
@@ -25,6 +29,13 @@ class ActionServiceProvider extends ServiceProvider
         $this->app->bind('Action', function () {
             return new ActionButton();
         });
+
+        $this->registerHtmlBuilder();
+
+        $this->registerFormBuilder();
+
+        $this->app->alias('html', HtmlBuilder::class);
+        $this->app->alias('form', FormBuilder::class);
     }
 
     /**
@@ -34,6 +45,37 @@ class ActionServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $this->bootRoutes();
+    }
+
+    public function bootRoutes()
+    {
+        RouteFacade::resource('post',PostController::class);
+    }
+
+     /**
+     * Register the HTML builder instance.
+     *
+     * @return void
+     */
+    protected function registerHtmlBuilder()
+    {
+        $this->app->singleton('html', function ($app) {
+            return new HtmlBuilder($app['url'], $app['view']);
+        });
+    }
+
+    /**
+     * Register the form builder instance.
+     *
+     * @return void
+     */
+    protected function registerFormBuilder()
+    {
+        $this->app->singleton('form', function ($app) {
+            $form = new FormBuilder($app['html'], $app['url'], $app['view'], $app['session.store']->token(), $app['request']);
+
+            return $form->setSessionStore($app['session.store']);
+        });
     }
 }
