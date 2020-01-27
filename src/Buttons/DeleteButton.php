@@ -62,6 +62,13 @@ class DeleteButton implements DeleteButtonContract
     protected $routeAction;
 
     /**
+     * Url which is used for Deletion.
+     *
+     * @var string
+     */
+    protected $urlAction;
+
+    /**
      * Get name of the Button to be Used for Deletion.
      *
      * @return  string
@@ -111,6 +118,30 @@ class DeleteButton implements DeleteButtonContract
     public function setRouteAction(...$routeAction)
     {
         $this->routeAction = $routeAction;
+
+        return $this;
+    }
+
+    /**
+     * Get url which is used for Deletion.
+     *
+     * @return  string
+     */ 
+    public function getUrlAction()
+    {
+        return $this->urlAction;
+    }
+
+    /**
+     * Set url which is used for Deletion.
+     *
+     * @param  string  $urlAction  Url which is used for Deletion.
+     *
+     * @return  self
+     */ 
+    public function setUrlAction(string $urlAction)
+    {
+        $this->urlAction = $urlAction;
 
         return $this;
     }
@@ -284,7 +315,7 @@ class DeleteButton implements DeleteButtonContract
         $formButtonIcon = $formButtonName = null;
 
         if ($this->icon) {
-            $formButtonIcon = '<i class="'.$this->icon.'"></i>';
+            $formButtonIcon = ' <i class="'.$this->icon.'"></i>  ';
         }
 
         if ($this->buttonName) {
@@ -305,6 +336,8 @@ class DeleteButton implements DeleteButtonContract
      **/
     public function get(): HtmlString
     {
+        dd($this);
+        
         $deleteButton = Form::open($this->getAtttributesForOpeningForm());
         $deleteButton .= method_field('DELETE');
         $deleteButton .= Form::button($this->getButtonNameWithParameters(), $this->getButtonOptionParameters());
@@ -312,4 +345,6 @@ class DeleteButton implements DeleteButtonContract
 
         return new HtmlString($deleteButton);
     }
+
+    
 }
