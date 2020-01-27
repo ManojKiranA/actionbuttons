@@ -13,8 +13,8 @@ namespace Manojkiran\ActionButtons;
 
 use Collective\Html\FormBuilder;
 use Collective\Html\HtmlBuilder;
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route as RouteFacade;
+use Illuminate\Support\ServiceProvider;
 use Manojkiran\ActionButtons\TestCases\Controllers\PostController;
 
 class ActionServiceProvider extends ServiceProvider
@@ -50,10 +50,10 @@ class ActionServiceProvider extends ServiceProvider
 
     public function bootRoutes()
     {
-        RouteFacade::resource('post',PostController::class);
+        RouteFacade::resource('post', PostController::class);
     }
 
-     /**
+    /**
      * Register the HTML builder instance.
      *
      * @return void
