@@ -37,8 +37,6 @@ class ActionServiceProvider extends ServiceProvider
             $this->app->alias('html', HtmlBuilder::class);
             $this->app->alias('form', FormBuilder::class);
         }
-
-        
     }
 
     /**
