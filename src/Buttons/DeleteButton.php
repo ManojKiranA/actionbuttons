@@ -285,7 +285,7 @@ class DeleteButton implements DeleteButtonContract
 
         throw_if(count($formOpen) > 1, AmbiguousRouteActionFound::class);
 
-        if ($this->deleteConfirmation && !is_bool($this->deleteConfirmation)) {
+        if ($this->deleteConfirmation && ! is_bool($this->deleteConfirmation)) {
             $formOpen['style'] = 'display:inline';
             $formOpen['onSubmit'] = 'return confirm("'.$this->deleteConfirmation.'")';
         }
@@ -304,7 +304,7 @@ class DeleteButton implements DeleteButtonContract
         $buttonOptions['type'] = 'submit';
         $buttonOptions['class'] = $this->class;
 
-        if (!is_bool($this->toolTip) && $this->toolTip) {
+        if (! is_bool($this->toolTip) && $this->toolTip) {
             $buttonOptions['data-toggle'] = 'tooltip';
             $buttonOptions['data-placement'] = $this->toolTipPosition;
             $buttonOptions['title'] = $this->toolTip;

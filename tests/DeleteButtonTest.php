@@ -36,7 +36,6 @@ class DeleteButtonTest extends BaseTestCase
         $this->deleteButtonObject = ActionButtonFacade::delete();
         $this->deleteButtonObjectWithRoute = ActionButtonFacade::delete()->setRouteAction('post.destroy', ['post' => $this->postObject]);
         $this->deleteButtonObjectWithUrl = ActionButtonFacade::delete()->setUrlAction('/post/'.$this->postObject);
-        
     }
 
     /** @test */
@@ -97,101 +96,99 @@ class DeleteButtonTest extends BaseTestCase
                             ->setToolTip($toolTipValue)
                             ->setToolTipPosition($toolTipPosition);
 
-        $this->assertEquals($toolTipPosition,$tooltipName->getToolTipPosition());
-        $this->assertEquals($toolTipValue,$tooltipName->getToolTip());
+        $this->assertEquals($toolTipPosition, $tooltipName->getToolTipPosition());
+        $this->assertEquals($toolTipValue, $tooltipName->getToolTip());
     }
 
     /** @test */
     public function isNotAddedUnnessaryParametersForToolTipIfFalse()
     {
         $toolTipPosition = 'Top';
-        
+
         $toolTipValue = false;
 
         $buttonWithToolTip = $this->deleteButtonObjectWithRoute
                             ->setToolTip($toolTipValue)
                             ->setToolTipPosition($toolTipPosition);
 
-        $this->assertEquals($toolTipPosition,$buttonWithToolTip->getToolTipPosition());
-        $this->assertEquals($toolTipValue,$buttonWithToolTip->getToolTip());
-        $this->assertEquals(2,count($buttonWithToolTip->getButtonOptionParameters()));
+        $this->assertEquals($toolTipPosition, $buttonWithToolTip->getToolTipPosition());
+        $this->assertEquals($toolTipValue, $buttonWithToolTip->getToolTip());
+        $this->assertEquals(2, count($buttonWithToolTip->getButtonOptionParameters()));
 
-        $toolTipKeys = ['data-toggle','data-placement','title'];
+        $toolTipKeys = ['data-toggle', 'data-placement', 'title'];
 
-        foreach($toolTipKeys as  $eachToolTipKeys){
-            $this->assertArrayNotHasKey($eachToolTipKeys,$buttonWithToolTip->getButtonOptionParameters());
+        foreach ($toolTipKeys as  $eachToolTipKeys) {
+            $this->assertArrayNotHasKey($eachToolTipKeys, $buttonWithToolTip->getButtonOptionParameters());
         }
-        
     }
 
     /** @test */
     public function canGetCustomisedIcon()
     {
         $buttonIcon = Str::random(10);
-    
+
         $buttonWithToolTip = $this->deleteButtonObjectWithRoute
                             ->setIcon($buttonIcon);
 
-        $this->assertEquals($buttonIcon,$buttonWithToolTip->getIcon());
+        $this->assertEquals($buttonIcon, $buttonWithToolTip->getIcon());
     }
 
     /** @test */
     public function canGetCustomisedButtonName()
     {
         $buttonName = Str::random(10);
-    
+
         $buttonWithToolTip = $this->deleteButtonObjectWithRoute
                             ->setButtonName($buttonName);
 
-        $this->assertEquals($buttonName,$buttonWithToolTip->getButtonName());
+        $this->assertEquals($buttonName, $buttonWithToolTip->getButtonName());
     }
 
     /** @test */
     public function canGetCustomisedButtonClassName()
     {
         $buttonClassNames = Str::random(10);
-    
+
         $buttonWithToolTip = $this->deleteButtonObjectWithRoute
                             ->setClass($buttonClassNames);
 
-        $this->assertEquals($buttonClassNames,$buttonWithToolTip->getClass());
+        $this->assertEquals($buttonClassNames, $buttonWithToolTip->getClass());
     }
 
     /** @test */
     public function canGetCustomisedConfirmationDialog()
     {
         $confirmationDialog = Str::random(10);
-    
+
         $buttonWithToolTip = $this->deleteButtonObjectWithRoute
                             ->setDeleteConfirmation($confirmationDialog);
 
-        $this->assertEquals($confirmationDialog,$buttonWithToolTip->getDeleteConfirmation());
+        $this->assertEquals($confirmationDialog, $buttonWithToolTip->getDeleteConfirmation());
     }
 
     /** @test */
     public function canDisableConfirmationDialog()
     {
         $confirmationDialog = false;
-    
+
         $buttonWithToolTip = $this->deleteButtonObjectWithRoute
                             ->setDeleteConfirmation($confirmationDialog);
 
-        $this->assertEquals($confirmationDialog,$buttonWithToolTip->getDeleteConfirmation());
+        $this->assertEquals($confirmationDialog, $buttonWithToolTip->getDeleteConfirmation());
     }
 
     /** @test */
     public function isNotAddingExtraStylingIfConformationIsDisabled()
     {
         $confirmationDialog = false;
-    
+
         $buttonWithToolTip = $this->deleteButtonObjectWithRoute
                             ->setDeleteConfirmation($confirmationDialog);
-        
-        
-        $confirmButtonKeys = ['style','onSubmit'];
 
-        foreach($confirmButtonKeys as  $eachconfirmButtonKeys){
-            $this->assertArrayNotHasKey($eachconfirmButtonKeys,$buttonWithToolTip->getAtttributesForOpeningForm());
+        $confirmButtonKeys = ['style', 'onSubmit'];
+
+        foreach ($confirmButtonKeys as  $eachconfirmButtonKeys) {
+            $this->assertArrayNotHasKey($eachconfirmButtonKeys, $buttonWithToolTip->getAtttributesForOpeningForm());
         }
     }
 
@@ -200,14 +197,12 @@ class DeleteButtonTest extends BaseTestCase
     {
         $buttonName = Str::random(10);
         $buttonIcon = Str::random(10);
-        
+
         $buttonWithIconAndText = $this->deleteButtonObjectWithRoute
                                     ->setButtonName($buttonName)
                                     ->setIcon($buttonIcon)
                                     ->getButtonNameWithParameters();
 
-        
-        $this->assertEquals(' <i class="'.$buttonIcon.'"></i>  '.$buttonName.'',$buttonWithIconAndText);
+        $this->assertEquals(' <i class="'.$buttonIcon.'"></i>  '.$buttonName.'', $buttonWithIconAndText);
     }
-
 }
