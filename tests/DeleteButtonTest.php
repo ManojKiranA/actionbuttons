@@ -2,12 +2,12 @@
 
 namespace Manojkiran\ActionButtons\Tests;
 
-use Illuminate\Support\Str;
 use Illuminate\Support\HtmlString;
-use Manojkiran\ActionButtons\TestCases\Models\Post;
+use Illuminate\Support\Str;
 use Manojkiran\ActionButtons\Exceptions\AmbiguousRouteActionFound;
-use Manojkiran\ActionButtons\Facades\ActionButton as ActionButtonFacade;
 use Manojkiran\ActionButtons\Exceptions\ButtonNameAndIconNotSetException;
+use Manojkiran\ActionButtons\Facades\ActionButton as ActionButtonFacade;
+use Manojkiran\ActionButtons\TestCases\Models\Post;
 
 class DeleteButtonTest extends BaseTestCase
 {
