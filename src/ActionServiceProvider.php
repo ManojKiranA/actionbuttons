@@ -33,12 +33,9 @@ class ActionServiceProvider extends ServiceProvider
 
         if (App::runningUnitTests()) {
             $this->registerHtmlBuilder();
-
-        $this->registerFormBuilder();
-
-        $this->app->alias('html', HtmlBuilder::class);
-
-        $this->app->alias('form', FormBuilder::class);
+            $this->registerFormBuilder();
+            $this->app->alias('html', HtmlBuilder::class);
+            $this->app->alias('form', FormBuilder::class);
         }
 
         
