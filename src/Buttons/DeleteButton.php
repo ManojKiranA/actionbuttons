@@ -16,7 +16,7 @@ class DeleteButton implements DeleteButtonContract
      *
      * @var string
      */
-    protected $buttonName = 'Delete';
+    protected $buttonName;
 
     /**
      * Class of the Delete button.
