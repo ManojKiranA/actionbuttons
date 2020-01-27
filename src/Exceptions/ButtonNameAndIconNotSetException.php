@@ -10,20 +10,20 @@
  */
 
 namespace Manojkiran\ActionButtons\Exceptions;
+
 use Exception as BaseException;
 
 class ButtonNameAndIconNotSetException extends BaseException
-{  
-    
+{
     /**
-     * Create new ButtonNameAndIconNotSetException
+     * Create new ButtonNameAndIconNotSetException.
      *
      * @param string $message
      * @param int $code
      * @param BaseException $previous
      * @return void
      **/
-    public function __construct(string $message = 'Either you need to set text for button or icon for button', int $code = 0, BaseException $previous = null) 
+    public function __construct(string $message = 'Either you need to set text for button or icon for button', int $code = 0, BaseException $previous = null)
     {
         parent::__construct($message, $code, $previous);
     }

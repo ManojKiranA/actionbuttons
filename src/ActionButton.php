@@ -11,7 +11,6 @@
 
 namespace Manojkiran\ActionButtons;
 
-use Illuminate\Database\Eloquent\Model;
 use Manojkiran\ActionButtons\Buttons\DeleteButton;
 
 class ActionButton
