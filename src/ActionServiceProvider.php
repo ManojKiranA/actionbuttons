@@ -37,7 +37,7 @@ class ActionServiceProvider extends ServiceProvider
 
         $this->app->alias('html', HtmlBuilder::class);
 
-                $this->app->alias('form', FormBuilder::class);
+        $this->app->alias('form', FormBuilder::class);
     }
 
     /**
@@ -47,8 +47,7 @@ class ActionServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if(App::runningUnitTests())
-        {
+        if (App::runningUnitTests()) {
             $this->bootRoutes();
         }
     }
