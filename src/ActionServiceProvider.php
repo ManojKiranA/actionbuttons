@@ -31,13 +31,17 @@ class ActionServiceProvider extends ServiceProvider
             return new ActionButton();
         });
 
-        $this->registerHtmlBuilder();
+        if (App::runningUnitTests()) {
+            $this->registerHtmlBuilder();
 
         $this->registerFormBuilder();
 
         $this->app->alias('html', HtmlBuilder::class);
 
         $this->app->alias('form', FormBuilder::class);
+        }
+
+        
     }
 
     /**
