@@ -6,7 +6,6 @@ php:
   - 7.4
 os:
   - linux
-  - windows
 
 before_script:
   - travis_retry composer self-update
