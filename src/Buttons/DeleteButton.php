@@ -3,10 +3,11 @@
 namespace Manojkiran\ActionButtons\Buttons;
 
 use Collective\Html\FormFacade as Form;
-use Exception as BaseException;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\HtmlString;
 use Manojkiran\ActionButtons\Contracts\DeleteButtonContract;
+use Manojkiran\ActionButtons\Exceptions\ButtonNameAndIconNotSetException;
 
 class DeleteButton implements DeleteButtonContract
 {
@@ -57,34 +58,9 @@ class DeleteButton implements DeleteButtonContract
     /**
      * Route Name which is used for Deletion.
      *
-     * @var string
+     * @var string|array
      */
     protected $routeAction;
-
-    /**
-     * Route Parameter which is used for Deletion.
-     *
-     * @var array
-     */
-    protected $routeParameter = [];
-
-    /**
-     * Model for Which the Buttons to be Generated.
-     *
-     * @var \Illuminate\Database\Eloquent\Model
-     */
-    protected $model;
-
-    /**
-     * Create a New Delete Button Instance.
-     *
-     * @param \Illuminate\Database\Eloquent\Model $model
-     * @return void
-     **/
-    public function __construct(Model $model)
-    {
-        $this->model = $model;
-    }
 
     /**
      * Get name of the Button to be Used for Deletion.
@@ -113,11 +89,17 @@ class DeleteButton implements DeleteButtonContract
     /**
      * Get route Name which is used for Deletion.
      *
-     * @return  string
+     * @return  array
      */
-    public function getRouteAction(): string
+    public function getRouteAction(): array
     {
-        return $this->routeAction;
+        $routeNameWithParameters = new Collection($this->routeAction);
+
+        $routeName = $routeNameWithParameters->first();
+
+        $routeParms = $routeNameWithParameters->slice(1)->collapse()->all();
+
+        return array_merge((array)$routeName,$routeParms);
     }
 
     /**
@@ -127,7 +109,7 @@ class DeleteButton implements DeleteButtonContract
      *
      * @return  self
      */
-    public function setRouteAction(string $routeAction)
+    public function setRouteAction(...$routeAction)
     {
         $this->routeAction = $routeAction;
 
@@ -254,47 +236,6 @@ class DeleteButton implements DeleteButtonContract
         return $this;
     }
 
-    /**
-     * Get route Parameter which is used for Deletion.
-     *
-     * @return  array
-     */
-    public function getRouteParameter(): array
-    {
-        return $this->routeParameter;
-    }
-
-    /**
-     * Set route Parameter which is used for Deletion.
-     *
-     * @param  array  $routeParameter  Route Parameter which is used for Deletion.
-     *
-     * @return  self
-     */
-    public function setRouteParameter(array $routeParameter)
-    {
-        $this->routeParameter = $routeParameter;
-
-        return $this;
-    }
-
-    /**
-     * Get the route name with paramaters.
-     *
-     * @return array
-     **/
-    public function getRouteNameWithParameters(): array
-    {
-        $fullRouteAction[] = $this->routeAction;
-
-        if ($this->routeParameter && $this->routeParameter !== []) {
-            foreach ($this->routeParameter as $eachParm => $eachValue) {
-                $fullRouteAction[$eachParm] = $eachValue;
-            }
-        }
-
-        return $fullRouteAction;
-    }
 
     /**
      * Get all the Props to open a form.
@@ -304,7 +245,7 @@ class DeleteButton implements DeleteButtonContract
      **/
     public function getAtttributesForOpeningForm()
     {
-        $formOpen['route'] = $this->getRouteNameWithParameters();
+        $formOpen['route'] = $this->getRouteAction();
 
         if ($this->deleteConfirmation) {
             $formOpen['style'] = 'display:inline';
@@ -342,17 +283,20 @@ class DeleteButton implements DeleteButtonContract
      **/
     public function getButtonNameWithParameters()
     {
-        $formButtonIcon = null;
+        $formButtonIcon = $formButtonName = null;
 
         if ($this->icon) {
             $formButtonIcon = '<i class="'.$this->icon.'"></i>';
         }
 
-        $formButtonName = null;
-
         if ($this->buttonName) {
             $formButtonName = $this->buttonName;
         }
+
+        if($formButtonIcon === null && $formButtonName === null)
+        {
+            throw new ButtonNameAndIconNotSetException;
+        }      
 
         return $formButtonIcon.$formButtonName;
     }
@@ -362,16 +306,12 @@ class DeleteButton implements DeleteButtonContract
      *
      * @return \Illuminate\Support\HtmlString
      **/
-    public function get(): HtmlString
+    public function get():HtmlString
     {
-        try {
-            $deleteButton = Form::open($this->getAtttributesForOpeningForm());
-            $deleteButton .= method_field('DELETE');
-            $deleteButton .= Form::button($this->getButtonNameWithParameters(), $this->getButtonOptionParameters());
-            $deleteButton .= Form::close();
-        } catch (BaseException $baseException) {
-            return $baseException->getMessage();
-        }
+        $deleteButton = Form::open($this->getAtttributesForOpeningForm());
+        $deleteButton .= method_field('DELETE');
+        $deleteButton .= Form::button($this->getButtonNameWithParameters(), $this->getButtonOptionParameters());
+        $deleteButton .= Form::close();
 
         return new HtmlString($deleteButton);
     }

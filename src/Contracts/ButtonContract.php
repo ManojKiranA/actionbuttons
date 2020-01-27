@@ -34,9 +34,9 @@ interface ButtonContract
     /**
      * Get route Name which is used for Deletion.
      *
-     * @return  string
+     * @return  array
      */
-    public function getRouteAction(): string;
+    public function getRouteAction(): array;
 
     /**
      * Set route Name which is used for Deletion.
@@ -45,7 +45,7 @@ interface ButtonContract
      *
      * @return  self
      */
-    public function setRouteAction(string $routeAction);
+    public function setRouteAction(...$routeAction);
 
     /**
      * Get set the Tooltip.
@@ -111,21 +111,7 @@ interface ButtonContract
      */
     public function setClass(string $class);
 
-    /**
-     * Get route Parameter which is used for Deletion.
-     *
-     * @return  array
-     */
-    public function getRouteParameter(): array;
-
-    /**
-     * Set route Parameter which is used for Deletion.
-     *
-     * @param  array  $routeParameter  Route Parameter which is used for Deletion.
-     *
-     * @return  self
-     */
-    public function setRouteParameter(array $routeParameter);
+    
 
     /**
      * Get the Html representation of the Button.

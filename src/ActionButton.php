@@ -16,8 +16,8 @@ use Manojkiran\ActionButtons\Buttons\DeleteButton;
 
 class ActionButton
 {
-    public function delete(Model $model)
+    public function delete()
     {
-        return new DeleteButton($model);
+        return new DeleteButton();
     }
 }
