@@ -111,12 +111,10 @@ interface ButtonContract
      */
     public function setClass(string $class);
 
-    
-
     /**
      * Get the Html representation of the Button.
      *
      * @return \Illuminate\Support\HtmlString
      **/
-    public function get():HtmlString;
+    public function get(): HtmlString;
 }

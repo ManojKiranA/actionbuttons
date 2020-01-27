@@ -4,7 +4,6 @@ namespace Manojkiran\ActionButtons\Buttons;
 
 use Collective\Html\FormFacade as Form;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\URL;
 use Illuminate\Support\HtmlString;
 use Manojkiran\ActionButtons\Contracts\DeleteButtonContract;
 use Manojkiran\ActionButtons\Exceptions\ButtonNameAndIconNotSetException;
@@ -99,7 +98,7 @@ class DeleteButton implements DeleteButtonContract
 
         $routeParms = $routeNameWithParameters->slice(1)->collapse()->all();
 
-        return array_merge((array)$routeName,$routeParms);
+        return array_merge((array) $routeName, $routeParms);
     }
 
     /**
@@ -236,7 +235,6 @@ class DeleteButton implements DeleteButtonContract
         return $this;
     }
 
-
     /**
      * Get all the Props to open a form.
      *
@@ -293,10 +291,9 @@ class DeleteButton implements DeleteButtonContract
             $formButtonName = $this->buttonName;
         }
 
-        if($formButtonIcon === null && $formButtonName === null)
-        {
+        if ($formButtonIcon === null && $formButtonName === null) {
             throw new ButtonNameAndIconNotSetException;
-        }      
+        }
 
         return $formButtonIcon.$formButtonName;
     }
@@ -306,7 +303,7 @@ class DeleteButton implements DeleteButtonContract
      *
      * @return \Illuminate\Support\HtmlString
      **/
-    public function get():HtmlString
+    public function get(): HtmlString
     {
         $deleteButton = Form::open($this->getAtttributesForOpeningForm());
         $deleteButton .= method_field('DELETE');
