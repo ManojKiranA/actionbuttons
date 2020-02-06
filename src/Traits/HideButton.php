@@ -1,4 +1,5 @@
 <?php
+
 namespace Manojkiran\ActionButtons\Traits;
 
 /**
@@ -17,8 +18,8 @@ trait HideButton
     /**
      * Get check weather the button is Hidden.
      *
-     * @return  bool
-     */ 
+     * @return bool
+     */
     public function getHidesButton()
     {
         return $this->hidesButton;
@@ -27,10 +28,10 @@ trait HideButton
     /**
      * Set check weather the button is Hidden.
      *
-     * @param  bool  $hidesButton  Check weather the button is Hidden.
+     * @param bool $hidesButton Check weather the button is Hidden.
      *
-     * @return  self
-     */ 
+     * @return self
+     */
     public function setHidesButton(bool $hidesButton)
     {
         $this->hidesButton = $hidesButton;
