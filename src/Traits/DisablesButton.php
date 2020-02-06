@@ -2,9 +2,6 @@
 
 namespace Manojkiran\ActionButtons\Traits;
 
-/**
- * 
- */
 trait DisablesButton
 {
     /**
@@ -16,48 +13,53 @@ trait DisablesButton
 
     /**
      * Checks for the Condition and disables
-     * if the condition is passed
+     * if the condition is passed.
      *
      * @param bool $disableIf
+     *
      * @return $this
      **/
     public function disableIf(bool $disableIf)
     {
-        if($disableIf){
+        if ($disableIf) {
             $this->setDisablesButton(true);
+
             return $this;
-        }else{
+        } else {
             $this->setDisablesButton(false);
+
             return $this;
         }
     }
 
     /**
      * Checks for the Condition and disables
-     * if the condition is not passed
+     * if the condition is not passed.
      *
      * @param bool $disableUnless
+     *
      * @return $this
      **/
     public function disableUnless(bool $disableUnless)
     {
-        if(! $disableUnless){
+        if (!$disableUnless) {
             $this->setDisablesButton(true);
+
             return $this;
-        }else{
+        } else {
             $this->setDisablesButton(false);
+
             return $this;
         }
     }
-    
 
     /**
      * Set check weather the button is Disabled.
      *
-     * @param  bool  $disablesButton  Check weather the button is Disabled.
+     * @param bool $disablesButton Check weather the button is Disabled.
      *
-     * @return  self
-     */ 
+     * @return self
+     */
     public function setDisablesButton(bool $disablesButton)
     {
         $this->disablesButton = $disablesButton;
