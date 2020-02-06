@@ -14,8 +14,8 @@ namespace Manojkiran\ActionButtons;
 use Collective\Html\FormBuilder;
 use Collective\Html\HtmlBuilder;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Route as RouteFacade;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Route as RouteFacade;
 use Manojkiran\ActionButtons\TestCases\Controllers\PostController;
 
 class ActionServiceProvider extends ServiceProvider

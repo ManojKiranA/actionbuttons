@@ -2,9 +2,9 @@
 
 namespace Manojkiran\ActionButtons\Buttons;
 
-use Collective\Html\FormFacade as Form;
 use Illuminate\Support\Collection;
 use Illuminate\Support\HtmlString;
+use Collective\Html\FormFacade as Form;
 use Manojkiran\ActionButtons\Contracts\DeleteButtonContract;
 use Manojkiran\ActionButtons\Exceptions\AmbiguousRouteActionFound;
 use Manojkiran\ActionButtons\Exceptions\ButtonNameAndIconNotSetException;
@@ -72,7 +72,7 @@ class DeleteButton implements DeleteButtonContract
     /**
      * Get name of the Button to be Used for Deletion.
      *
-     * @return  string
+     * @return string
      */
     public function getButtonName(): string
     {
@@ -82,9 +82,9 @@ class DeleteButton implements DeleteButtonContract
     /**
      * Set name of the Button to be Used for Deletion.
      *
-     * @param  string  $buttonName  Name of the Button to be Used for Deletion.
+     * @param string $buttonName Name of the Button to be Used for Deletion.
      *
-     * @return  $this
+     * @return $this
      */
     public function setButtonName(string $buttonName)
     {
@@ -96,7 +96,7 @@ class DeleteButton implements DeleteButtonContract
     /**
      * Get route Name which is used for Deletion.
      *
-     * @return  array
+     * @return array
      */
     public function getRouteAction(): array
     {
@@ -112,9 +112,9 @@ class DeleteButton implements DeleteButtonContract
     /**
      * Set route Name which is used for Deletion.
      *
-     * @param  string  $routeAction  Route Name which is used for Deletion.
+     * @param string $routeAction Route Name which is used for Deletion.
      *
-     * @return  self
+     * @return self
      */
     public function setRouteAction(...$routeAction)
     {
@@ -126,7 +126,7 @@ class DeleteButton implements DeleteButtonContract
     /**
      * Get url which is used for Deletion.
      *
-     * @return  string
+     * @return string
      */
     public function getUrlAction()
     {
@@ -136,9 +136,9 @@ class DeleteButton implements DeleteButtonContract
     /**
      * Set url which is used for Deletion.
      *
-     * @param  string  $urlAction  Url which is used for Deletion.
+     * @param string $urlAction Url which is used for Deletion.
      *
-     * @return  self
+     * @return self
      */
     public function setUrlAction(string $urlAction)
     {
@@ -150,7 +150,7 @@ class DeleteButton implements DeleteButtonContract
     /**
      * Get set the Confirmation.
      *
-     * @return  string|bool
+     * @return string|bool
      */
     public function getDeleteConfirmation(): string
     {
@@ -160,9 +160,9 @@ class DeleteButton implements DeleteButtonContract
     /**
      * Set set the Confirmation.
      *
-     * @param  string|bool  $deleteConfirmation  Set the Confirmation.
+     * @param string|bool $deleteConfirmation Set the Confirmation.
      *
-     * @return  $this
+     * @return $this
      */
     public function setDeleteConfirmation($deleteConfirmation)
     {
@@ -174,7 +174,7 @@ class DeleteButton implements DeleteButtonContract
     /**
      * Get set the Tooltip.
      *
-     * @return  string|bool
+     * @return string|bool
      */
     public function getToolTip(): string
     {
@@ -184,9 +184,9 @@ class DeleteButton implements DeleteButtonContract
     /**
      * Set set the Tooltip.
      *
-     * @param  string|bool  $toolTip  Set the Tooltip.
+     * @param string|bool $toolTip Set the Tooltip.
      *
-     * @return  $this
+     * @return $this
      */
     public function setToolTip($toolTip)
     {
@@ -198,7 +198,7 @@ class DeleteButton implements DeleteButtonContract
     /**
      * Get https://getbootstrap.com/docs/4.4/components/tooltips/#options.
      *
-     * @return  string|bool
+     * @return string|bool
      */
     public function getToolTipPosition(): string
     {
@@ -208,9 +208,9 @@ class DeleteButton implements DeleteButtonContract
     /**
      * Set https://getbootstrap.com/docs/4.4/components/tooltips/#options.
      *
-     * @param  string|bool  $toolTipPosition  https://getbootstrap.com/docs/4.4/components/tooltips/#options
+     * @param string|bool $toolTipPosition https://getbootstrap.com/docs/4.4/components/tooltips/#options
      *
-     * @return  self
+     * @return self
      */
     public function setToolTipPosition($toolTipPosition)
     {
@@ -222,7 +222,7 @@ class DeleteButton implements DeleteButtonContract
     /**
      * Get icon for Delete button.
      *
-     * @return  string
+     * @return string
      */
     public function getIcon(): string
     {
@@ -232,9 +232,9 @@ class DeleteButton implements DeleteButtonContract
     /**
      * Set icon for Delete button.
      *
-     * @param  string  $icon  Icon for Delete button.
+     * @param string $icon Icon for Delete button.
      *
-     * @return  self
+     * @return self
      */
     public function setIcon(string $icon)
     {
@@ -246,7 +246,7 @@ class DeleteButton implements DeleteButtonContract
     /**
      * Get class of the Delete button.
      *
-     * @return  string
+     * @return string
      */
     public function getClass(): string
     {
@@ -256,9 +256,9 @@ class DeleteButton implements DeleteButtonContract
     /**
      * Set class of the Delete button.
      *
-     * @param  string  $class  Class of the Delete button.
+     * @param string $class Class of the Delete button.
      *
-     * @return  self
+     * @return self
      */
     public function setClass(string $class)
     {
@@ -285,8 +285,8 @@ class DeleteButton implements DeleteButtonContract
 
         throw_if(count($formOpen) > 1, AmbiguousRouteActionFound::class);
 
-        if ($this->deleteConfirmation && ! is_bool($this->deleteConfirmation)) {
-            $formOpen['style'] = 'display:inline';
+        if ($this->deleteConfirmation && !is_bool($this->deleteConfirmation)) {
+            $formOpen['style']    = 'display:inline';
             $formOpen['onSubmit'] = 'return confirm("'.$this->deleteConfirmation.'")';
         }
 
@@ -301,13 +301,13 @@ class DeleteButton implements DeleteButtonContract
      **/
     public function getButtonOptionParameters()
     {
-        $buttonOptions['type'] = 'submit';
+        $buttonOptions['type']  = 'submit';
         $buttonOptions['class'] = $this->class;
 
-        if (! is_bool($this->toolTip) && $this->toolTip) {
-            $buttonOptions['data-toggle'] = 'tooltip';
+        if (!is_bool($this->toolTip) && $this->toolTip) {
+            $buttonOptions['data-toggle']    = 'tooltip';
             $buttonOptions['data-placement'] = $this->toolTipPosition;
-            $buttonOptions['title'] = $this->toolTip;
+            $buttonOptions['title']          = $this->toolTip;
         }
 
         return $buttonOptions;
@@ -332,7 +332,7 @@ class DeleteButton implements DeleteButtonContract
         }
 
         if ($formButtonIcon === null && $formButtonName === null) {
-            throw new ButtonNameAndIconNotSetException;
+            throw new ButtonNameAndIconNotSetException();
         }
 
         return $formButtonIcon.$formButtonName;
