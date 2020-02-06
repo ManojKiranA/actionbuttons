@@ -7,12 +7,12 @@ use Illuminate\Support\HtmlString;
 use Collective\Html\FormFacade as Form;
 use Manojkiran\ActionButtons\Traits\DisablesButton;
 use Manojkiran\ActionButtons\Contracts\DeleteButtonContract;
+use Manojkiran\ActionButtons\Contracts\DisablesButtonContract;
 use Manojkiran\ActionButtons\Exceptions\AmbiguousRouteActionFound;
 use Manojkiran\ActionButtons\Exceptions\ButtonNameAndIconNotSetException;
 
-class DeleteButton implements DeleteButtonContract
+class DeleteButton extends Button implements DeleteButtonContract
 {
-    use DisablesButton;
     /**
      * Name of the Button to be Used for Deletion.
      *

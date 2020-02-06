@@ -76,7 +76,7 @@ trait DisablesButton
      *
      * @return bool
      */
-    public function getDisablesButton()
+    public function getDisablesButton():bool
     {
         return $this->disablesButton;
     }
