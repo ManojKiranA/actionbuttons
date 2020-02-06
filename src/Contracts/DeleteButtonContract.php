@@ -16,16 +16,16 @@ interface DeleteButtonContract extends ButtonContract
     /**
      * Get set the Confirmation.
      *
-     * @return  string|bool
+     * @return string|bool
      */
     public function getDeleteConfirmation(): string;
 
     /**
      * Set set the Confirmation.
      *
-     * @param  string|bool  $deleteConfirmation  Set the Confirmation.
+     * @param string|bool $deleteConfirmation Set the Confirmation.
      *
-     * @return  $this
+     * @return $this
      */
     public function setDeleteConfirmation($deleteConfirmation);
 }
