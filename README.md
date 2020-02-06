@@ -10,4 +10,4 @@ Most commanly used buttons in Laravel for CRUD operations
 
 [![GitHub license](https://img.shields.io/github/license/ManojKiranA/actionbuttons?style=flat-square)](https://github.com/ManojKiranA/actionbuttons)   
 
-[Test](https://github.com/ManojKiranA/actionbuttons/workflows/Test/badge.svg?branch=master)
+![Test](https://github.com/ManojKiranA/actionbuttons/workflows/Test/badge.svg?branch=master)
