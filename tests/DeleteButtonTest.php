@@ -39,7 +39,7 @@ class DeleteButtonTest extends BaseTestCase
     }
 
     /** @test */
-    public function canCreateBasicButtonWithModelAndRoute()
+    public function createsBasicButtonWithModelAndRoute()
     {
         $basicButtonWithRoute = $this->deleteButtonObjectWithRoute->get();
 
@@ -47,7 +47,7 @@ class DeleteButtonTest extends BaseTestCase
     }
 
     /** @test */
-    public function canCreateBasicButtonWithModelAndUrl()
+    public function createsBasicButtonWithModelAndUrl()
     {
         $basicButtonWithUrl = $this->deleteButtonObjectWithUrl->get();
 
@@ -55,7 +55,7 @@ class DeleteButtonTest extends BaseTestCase
     }
 
     /** @test */
-    public function cannotSetAmbigiousActionsToButton()
+    public function settingAmbigiousActionsThrowsException()
     {
         try {
             $this->deleteButtonObject
@@ -70,7 +70,7 @@ class DeleteButtonTest extends BaseTestCase
     }
 
     /** @test */
-    public function cannotUnSetButtonNameAndIcon()
+    public function unableToUnSetButtonNameAndIcon()
     {
         try {
             $this->deleteButtonObject
@@ -86,7 +86,7 @@ class DeleteButtonTest extends BaseTestCase
     }
 
     /** @test */
-    public function canGetCustomisedToolTip()
+    public function getCustomisedToolTipPositionOrText()
     {
         $toolTipPosition = 'Top';
 
@@ -123,7 +123,7 @@ class DeleteButtonTest extends BaseTestCase
     }
 
     /** @test */
-    public function canGetCustomisedIcon()
+    public function getCustomisedIcon()
     {
         $buttonIcon = Str::random(10);
 
@@ -134,7 +134,7 @@ class DeleteButtonTest extends BaseTestCase
     }
 
     /** @test */
-    public function canGetCustomisedButtonName()
+    public function getCustomisedButtonName()
     {
         $buttonName = Str::random(10);
 
@@ -145,7 +145,7 @@ class DeleteButtonTest extends BaseTestCase
     }
 
     /** @test */
-    public function canGetCustomisedButtonClassName()
+    public function getCustomisedButtonClassName()
     {
         $buttonClassNames = Str::random(10);
 
@@ -156,7 +156,7 @@ class DeleteButtonTest extends BaseTestCase
     }
 
     /** @test */
-    public function canGetCustomisedConfirmationDialog()
+    public function getCustomisedConfirmationDialog()
     {
         $confirmationDialog = Str::random(10);
 
@@ -167,7 +167,7 @@ class DeleteButtonTest extends BaseTestCase
     }
 
     /** @test */
-    public function canDisableConfirmationDialog()
+    public function disablesConfirmationDialog()
     {
         $confirmationDialog = false;
 
@@ -205,4 +205,42 @@ class DeleteButtonTest extends BaseTestCase
 
         $this->assertEquals(' <i class="'.$buttonIcon.'"></i>  '.$buttonName.'', $buttonWithIconAndText);
     }
+
+    /** @test */
+    public function disablesButtonWhenConditionIsTrue()
+    {
+        $disableKey = 'disabled';
+
+        $disableIfValue = 'DISABLE';
+
+        $buttonWithDisabledCondition = $this->deleteButtonObjectWithRoute
+                            ->disableIf($disableIfValue === "DISABLE");
+
+        $this->assertArrayHasKey($disableKey, $buttonWithDisabledCondition->getButtonOptionParameters());
+
+        $buttonWithNotDisabledCondition = $this->deleteButtonObjectWithRoute
+                            ->disableIf($disableIfValue !== "DISABLE");
+        
+        $this->assertArrayNotHasKey($disableKey, $buttonWithNotDisabledCondition->getButtonOptionParameters());
+    }
+
+    /** @test */
+    public function disablesButtonWhenConditionIsNotTrue()
+    {
+        $disableKey = 'disabled';
+
+        $disableIfValue = 'DISABLE';
+
+        $buttonWithDisabledCondition = $this->deleteButtonObjectWithRoute
+                            ->disableUnless($disableIfValue === "DISABLE");
+
+        $this->assertArrayNotHasKey($disableKey, $buttonWithDisabledCondition->getButtonOptionParameters());
+
+        $buttonWithNotDisabledCondition = $this->deleteButtonObjectWithRoute
+                            ->disableUnless($disableIfValue !== "DISABLE");
+        
+        $this->assertArrayHasKey($disableKey, $buttonWithNotDisabledCondition->getButtonOptionParameters());
+    }
+
+
 }
