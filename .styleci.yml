@@ -1,1 +1,17 @@
-preset: laravel
+preset: recommended
+
+enabled:
+  - align_equals
+  - length_ordered_imports
+  
+disabled:
+  - unalign_equals
+  - alpha_ordered_imports
+
+finder:
+  exclude:
+    - "tests"
+  name:
+    - "*.php"
+  not-name:
+    - "*Stub.php"
