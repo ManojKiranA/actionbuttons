@@ -3,7 +3,8 @@
 namespace Manojkiran\ActionButtons\Traits;
 
 /**
- * 
+ * Trait to Set the Property for Disabling the 
+ * button based on the condition
  */
 trait DisablesButton
 {
@@ -63,5 +64,15 @@ trait DisablesButton
         $this->disablesButton = $disablesButton;
 
         return $this;
+    }
+
+    /**
+     * Get check weather the button is Disabled.
+     *
+     * @return  bool
+     */ 
+    public function getDisablesButton()
+    {
+        return $this->disablesButton;
     }
 }

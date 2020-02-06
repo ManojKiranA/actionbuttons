@@ -310,10 +310,10 @@ class DeleteButton implements DeleteButtonContract
             $buttonOptions['data-placement'] = $this->toolTipPosition;
             $buttonOptions['title']          = $this->toolTip;
         }
-        if($this->disablesButton){
+        if($this->getDisablesButton()){
             $buttonOptions['disabled']       = true;
         }
-        
+
         return $buttonOptions;
     }
 
