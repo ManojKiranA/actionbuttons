@@ -5,10 +5,10 @@ namespace Manojkiran\ActionButtons\Buttons;
 use Illuminate\Support\Collection;
 use Illuminate\Support\HtmlString;
 use Collective\Html\FormFacade as Form;
+use Manojkiran\ActionButtons\Traits\DisablesButton;
 use Manojkiran\ActionButtons\Contracts\DeleteButtonContract;
 use Manojkiran\ActionButtons\Exceptions\AmbiguousRouteActionFound;
 use Manojkiran\ActionButtons\Exceptions\ButtonNameAndIconNotSetException;
-use Manojkiran\ActionButtons\Traits\DisablesButton;
 
 class DeleteButton implements DeleteButtonContract
 {
@@ -291,6 +291,7 @@ class DeleteButton implements DeleteButtonContract
             $formOpen['style']    = 'display:inline';
             $formOpen['onSubmit'] = 'return confirm("'.$this->deleteConfirmation.'")';
         }
+
         return $formOpen;
     }
 
@@ -310,7 +311,7 @@ class DeleteButton implements DeleteButtonContract
             $buttonOptions['data-placement'] = $this->toolTipPosition;
             $buttonOptions['title']          = $this->toolTip;
         }
-        if($this->getDisablesButton()){
+        if ($this->getDisablesButton()) {
             $buttonOptions['disabled']       = true;
         }
 
