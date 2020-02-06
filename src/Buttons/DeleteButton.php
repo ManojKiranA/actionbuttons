@@ -5,9 +5,7 @@ namespace Manojkiran\ActionButtons\Buttons;
 use Illuminate\Support\Collection;
 use Illuminate\Support\HtmlString;
 use Collective\Html\FormFacade as Form;
-use Manojkiran\ActionButtons\Traits\DisablesButton;
 use Manojkiran\ActionButtons\Contracts\DeleteButtonContract;
-use Manojkiran\ActionButtons\Contracts\DisablesButtonContract;
 use Manojkiran\ActionButtons\Exceptions\AmbiguousRouteActionFound;
 use Manojkiran\ActionButtons\Exceptions\ButtonNameAndIconNotSetException;
 
