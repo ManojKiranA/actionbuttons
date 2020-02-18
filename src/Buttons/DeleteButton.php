@@ -102,7 +102,7 @@ class DeleteButton extends Button implements DeleteButtonContract
     {
         $routeNameWithParameters = new Collection($this->routeAction);
 
-        if($routeNameWithParameters->isEmpty()){
+        if ($routeNameWithParameters->isEmpty()) {
             return [];
         }
 

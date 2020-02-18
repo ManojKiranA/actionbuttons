@@ -11,9 +11,8 @@
 
 namespace Manojkiran\ActionButtons;
 
-use Manojkiran\ActionButtons\Buttons\DeleteButton;
-use Collective\Html\FormFacade;
 use Manojkiran\ActionButtons\Buttons\EditButton;
+use Manojkiran\ActionButtons\Buttons\DeleteButton;
 
 class ActionButton
 {
