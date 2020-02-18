@@ -20,7 +20,7 @@ trait HideButton
      *
      * @return bool
      */
-    public function getHidesButton():bool
+    public function getHidesButton(): bool
     {
         return $this->hidesButton;
     }

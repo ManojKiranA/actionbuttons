@@ -334,7 +334,7 @@ class DeleteButton extends Button implements DeleteButtonContract
             $formButtonName = $this->buttonName;
         }
 
-        throw_if($formButtonIcon === null && $formButtonName === null,ButtonNameAndIconNotSetException::class);
+        throw_if($formButtonIcon === null && $formButtonName === null, ButtonNameAndIconNotSetException::class);
 
         return $formButtonIcon.$formButtonName;
     }
@@ -346,10 +346,10 @@ class DeleteButton extends Button implements DeleteButtonContract
      **/
     public function get(): HtmlString
     {
-        if($this->getHidesButton()){
+        if ($this->getHidesButton()) {
             return new HtmlString('');
         }
-        
+
         $deleteButton = Form::open($this->getAtttributesForOpeningForm());
         $deleteButton .= method_field('DELETE');
         $deleteButton .= Form::button($this->getButtonNameWithParameters(), $this->getButtonOptionParameters());

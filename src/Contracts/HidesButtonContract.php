@@ -9,7 +9,7 @@ interface HidesButtonContract
      *
      * @return bool
      */
-    public function getHidesButton() : bool;
+    public function getHidesButton(): bool;
 
     /**
      * Set check weather the button is Hidden.
