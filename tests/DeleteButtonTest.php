@@ -242,5 +242,38 @@ class DeleteButtonTest extends BaseTestCase
         $this->assertArrayHasKey($disableKey, $buttonWithNotDisabledCondition->getButtonOptionParameters());
     }
 
+    /** @test */
+    public function hidesButtonWhenConditionIsTrue()
+    {
+        $hideIfValue = 'HIDE';
+
+        $buttonWithHiddenCondition = $this->deleteButtonObjectWithRoute
+                            ->hideIf($hideIfValue === "HIDE");
+
+        $this->assertEquals('',$buttonWithHiddenCondition->get()->toHtml());
+
+        $buttonWithNotHiddedCondition = $this->deleteButtonObjectWithRoute
+                            ->hideIf($hideIfValue !== "HIDE");
+        
+        $this->assertNotEquals('',$buttonWithNotHiddedCondition->get()->toHtml());
+    }
+
+    /** @test */
+    public function hidesButtonWhenConditionIsNotTrue()
+    {
+
+        $hideIfValue = 'HIDE';
+
+        $buttonWithHiddenCondition = $this->deleteButtonObjectWithRoute
+                            ->hideUnless($hideIfValue === "HIDE");
+
+        $this->assertNotEquals('',$buttonWithHiddenCondition->get()->toHtml());
+
+        $buttonWithNotDisabledCondition = $this->deleteButtonObjectWithRoute
+                            ->hideUnless($hideIfValue !== "HIDE");
+        
+        $this->assertEquals('',$buttonWithNotDisabledCondition->get()->toHtml());
+    }
+
 
 }
