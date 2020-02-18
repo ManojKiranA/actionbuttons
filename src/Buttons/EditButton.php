@@ -2,10 +2,10 @@
 
 namespace Manojkiran\ActionButtons\Buttons;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\HtmlString;
 use Collective\Html\HtmlFacade as HtmlBuilder;
-use Illuminate\Support\Arr;
 use Manojkiran\ActionButtons\Contracts\EditButtonContract;
 use Manojkiran\ActionButtons\Exceptions\AmbiguousRouteActionFound;
 use Manojkiran\ActionButtons\Exceptions\ButtonNameAndIconNotSetException;
@@ -32,7 +32,6 @@ class EditButton extends Button implements EditButtonContract
      * @var string
      */
     protected $icon = 'fas fa-pen';
-
 
     /**
      * Set the Tooltip.
@@ -96,9 +95,8 @@ class EditButton extends Button implements EditButtonContract
     public function getRouteAction(): array
     {
         $routeNameWithParameters = new Collection($this->routeAction);
-       
 
-        if($routeNameWithParameters->isEmpty()){
+        if ($routeNameWithParameters->isEmpty()) {
             return [];
         }
 
@@ -106,8 +104,7 @@ class EditButton extends Button implements EditButtonContract
 
         $routeParms = $routeNameWithParameters->slice(1)->collapse()->all();
 
-
-        return ['routeName' => $routeName,'routeParms' => $routeParms];
+        return ['routeName' => $routeName, 'routeParms' => $routeParms];
     }
 
     /**
@@ -255,12 +252,10 @@ class EditButton extends Button implements EditButtonContract
         $hrefLink = null;
 
         if ($this->getRouteAction() && $this->getRouteAction() !== []) {
-            
-            $hrefLink = route(Arr::get($this->getRouteAction(),'routeName'),Arr::get($this->getRouteAction(),'routeParms',[]));
+            $hrefLink = route(Arr::get($this->getRouteAction(), 'routeName'), Arr::get($this->getRouteAction(), 'routeParms', []));
         }
 
         if ($this->getUrlAction()) {
-
             throw_if($hrefLink !== null, AmbiguousRouteActionFound::class);
             $hrefLink = $this->getUrlAction();
         }
@@ -323,8 +318,7 @@ class EditButton extends Button implements EditButtonContract
         if ($this->getHidesButton()) {
             return new HtmlString('');
         }
-        
-        return  HtmlBuilder::link($this->getUrlForGeneratingHref(),$this->getButtonNameWithParameters(),$this->getButtonOptionParameters(),false, false);
-           
+
+        return  HtmlBuilder::link($this->getUrlForGeneratingHref(), $this->getButtonNameWithParameters(), $this->getButtonOptionParameters(), false, false);
     }
 }

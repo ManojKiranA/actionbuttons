@@ -13,5 +13,4 @@ namespace Manojkiran\ActionButtons\Contracts;
 
 interface EditButtonContract extends ButtonContract
 {
-    
 }
