@@ -24,7 +24,7 @@ class AmbiguousRouteActionFound extends BaseException
      *
      * @return void
      **/
-    public function __construct(string $message = 'Ambiguous action found for Form', int $code = 1, BaseException $previous = null)
+    public function __construct(string $message = 'Ambiguous action found', int $code = 1, BaseException $previous = null)
     {
         parent::__construct($message, $code, $previous);
     }

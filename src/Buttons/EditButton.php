@@ -4,12 +4,13 @@ namespace Manojkiran\ActionButtons\Buttons;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\HtmlString;
-use Collective\Html\FormFacade as FormBuilder;
-use Manojkiran\ActionButtons\Contracts\DeleteButtonContract;
+use Collective\Html\HtmlFacade as HtmlBuilder;
+use Illuminate\Support\Arr;
+use Manojkiran\ActionButtons\Contracts\EditButtonContract;
 use Manojkiran\ActionButtons\Exceptions\AmbiguousRouteActionFound;
 use Manojkiran\ActionButtons\Exceptions\ButtonNameAndIconNotSetException;
 
-class DeleteButton extends Button implements DeleteButtonContract
+class EditButton extends Button implements EditButtonContract
 {
     /**
      * Name of the Button to be Used for Deletion.
@@ -23,28 +24,22 @@ class DeleteButton extends Button implements DeleteButtonContract
      *
      * @var string
      */
-    protected $class = 'btn btn-sm btn-outline-danger';
+    protected $class = 'btn btn-sm btn-outline-info';
 
     /**
      * Icon for Delete button.
      *
      * @var string
      */
-    protected $icon = 'fas fa-trash';
+    protected $icon = 'fas fa-pen';
 
-    /**
-     * Set the Confirmation.
-     *
-     * @var string|bool
-     */
-    protected $deleteConfirmation = 'Are you Sure';
 
     /**
      * Set the Tooltip.
      *
      * @var string|bool
      */
-    protected $toolTip = 'Delete';
+    protected $toolTip = 'Edit';
 
     /**
      * Set the Tooltip.
@@ -101,6 +96,7 @@ class DeleteButton extends Button implements DeleteButtonContract
     public function getRouteAction(): array
     {
         $routeNameWithParameters = new Collection($this->routeAction);
+       
 
         if($routeNameWithParameters->isEmpty()){
             return [];
@@ -110,7 +106,8 @@ class DeleteButton extends Button implements DeleteButtonContract
 
         $routeParms = $routeNameWithParameters->slice(1)->collapse()->all();
 
-        return array_merge((array) $routeName, $routeParms);
+
+        return ['routeName' => $routeName,'routeParms' => $routeParms];
     }
 
     /**
@@ -147,30 +144,6 @@ class DeleteButton extends Button implements DeleteButtonContract
     public function setUrlAction(string $urlAction)
     {
         $this->urlAction = $urlAction;
-
-        return $this;
-    }
-
-    /**
-     * Get set the Confirmation.
-     *
-     * @return string|bool
-     */
-    public function getDeleteConfirmation(): string
-    {
-        return $this->deleteConfirmation;
-    }
-
-    /**
-     * Set set the Confirmation.
-     *
-     * @param string|bool $deleteConfirmation Set the Confirmation.
-     *
-     * @return $this
-     */
-    public function setDeleteConfirmation($deleteConfirmation)
-    {
-        $this->deleteConfirmation = $deleteConfirmation;
 
         return $this;
     }
@@ -277,24 +250,22 @@ class DeleteButton extends Button implements DeleteButtonContract
      *
      * @return array
      **/
-    public function getAtttributesForOpeningForm()
+    public function getUrlForGeneratingHref()
     {
-        if ($this->getRouteAction()) {
-            $formOpen['route'] = $this->getRouteAction();
+        $hrefLink = null;
+
+        if ($this->getRouteAction() && $this->getRouteAction() !== []) {
+            
+            $hrefLink = route(Arr::get($this->getRouteAction(),'routeName'),Arr::get($this->getRouteAction(),'routeParms',[]));
         }
 
         if ($this->getUrlAction()) {
-            $formOpen['url'] = $this->getUrlAction();
+
+            throw_if($hrefLink !== null, AmbiguousRouteActionFound::class);
+            $hrefLink = $this->getUrlAction();
         }
 
-        throw_if(count($formOpen) > 1, AmbiguousRouteActionFound::class);
-
-        if ($this->deleteConfirmation && !is_bool($this->deleteConfirmation)) {
-            $formOpen['style']    = 'display:inline';
-            $formOpen['onSubmit'] = 'return confirm("'.$this->deleteConfirmation.'")';
-        }
-
-        return $formOpen;
+        return $hrefLink;
     }
 
     /**
@@ -305,7 +276,6 @@ class DeleteButton extends Button implements DeleteButtonContract
      **/
     public function getButtonOptionParameters()
     {
-        $buttonOptions['type']  = 'submit';
         $buttonOptions['class'] = $this->class;
 
         if (!is_bool($this->toolTip) && $this->toolTip) {
@@ -353,12 +323,8 @@ class DeleteButton extends Button implements DeleteButtonContract
         if ($this->getHidesButton()) {
             return new HtmlString('');
         }
-
-        $deleteButton = FormBuilder::open($this->getAtttributesForOpeningForm());
-        $deleteButton .= method_field('DELETE');
-        $deleteButton .= FormBuilder::button($this->getButtonNameWithParameters(), $this->getButtonOptionParameters());
-        $deleteButton .= FormBuilder::close();
-
-        return new HtmlString($deleteButton);
+        
+        return  HtmlBuilder::link($this->getUrlForGeneratingHref(),$this->getButtonNameWithParameters(),$this->getButtonOptionParameters(),false, false);
+           
     }
 }

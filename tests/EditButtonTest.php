@@ -9,15 +9,15 @@ use Manojkiran\ActionButtons\Exceptions\ButtonNameAndIconNotSetException;
 use Manojkiran\ActionButtons\Facades\ActionButton as ActionButtonFacade;
 use Manojkiran\ActionButtons\TestCases\Models\Post;
 
-class DeleteButtonTest extends BaseTestCase
+class EditButtonTest extends BaseTestCase
 {
     protected $postObject;
 
-    protected $deleteButtonObject;
+    protected $editButtonObject;
 
-    protected $deleteButtonObjectWithRoute;
+    protected $editButtonObjectWithRoute;
 
-    protected $deleteButtonObjectWithUrl;
+    protected $editButtonObjectWithUrl;
 
     /**
      * Setup the test environment.
@@ -33,34 +33,30 @@ class DeleteButtonTest extends BaseTestCase
             'post_content' => Str::random(10),
         ]);
 
-        $this->deleteButtonObject = ActionButtonFacade::delete();
-        $this->deleteButtonObjectWithRoute = ActionButtonFacade::delete()->setRouteAction('post.destroy', ['post' => $this->postObject]);
-        $this->deleteButtonObjectWithUrl = ActionButtonFacade::delete()->setUrlAction('/post/'.$this->postObject->id);
+        $this->editButtonObject = ActionButtonFacade::edit();
+        $this->editButtonObjectWithRoute = ActionButtonFacade::edit()->setRouteAction('post.edit', ['post' => $this->postObject]);
+        $this->editButtonObjectWithUrl = (ActionButtonFacade::edit()->setUrlAction('/post/'.$this->postObject->id,'/edit/'));
     }
 
     /** @test */
-    public function createsBasicButtonWithModelAndRoute()
+    public function basicButtonWithRoute()
     {
-        $basicButtonWithRoute = $this->deleteButtonObjectWithRoute->get();
-
-        $this->assertInstanceOf(HtmlString::class, $basicButtonWithRoute);
+        $this->assertInstanceOf(HtmlString::class,$this->editButtonObjectWithRoute->get());
     }
 
     /** @test */
-    public function createsBasicButtonWithModelAndUrl()
+    public function basicButtonWithUrl()
     {
-        $basicButtonWithUrl = $this->deleteButtonObjectWithUrl->get();
-
-        $this->assertInstanceOf(HtmlString::class, $basicButtonWithUrl);
+        $this->assertInstanceOf(HtmlString::class,$this->editButtonObjectWithUrl->get());
     }
 
     /** @test */
     public function settingAmbigiousActionsThrowsException()
     {
         try {
-            $this->deleteButtonObject
+            $this->editButtonObject
                             ->setUrlAction('/post/'.$this->postObject)
-                            ->setRouteAction('post.destroy', ['post' => $this->postObject])
+                            ->setRouteAction('post.edit', ['post' => $this->postObject])
                             ->get();
         } catch (AmbiguousRouteActionFound $e) {
             $this->assertEquals(1, $e->getCode());
@@ -73,8 +69,8 @@ class DeleteButtonTest extends BaseTestCase
     public function unableToUnSetButtonNameAndIcon()
     {
         try {
-            $this->deleteButtonObject
-                            ->setRouteAction('post.destroy', ['post' => $this->postObject])
+            $this->editButtonObject
+                            ->setRouteAction('post.edit', ['post' => $this->postObject])
                             ->setButtonName(false)
                             ->setIcon(false)
                             ->get();
@@ -92,7 +88,7 @@ class DeleteButtonTest extends BaseTestCase
 
         $toolTipValue = Str::random(10);
 
-        $tooltipName = $this->deleteButtonObjectWithRoute
+        $tooltipName = $this->editButtonObjectWithRoute
                             ->setToolTip($toolTipValue)
                             ->setToolTipPosition($toolTipPosition);
 
@@ -107,13 +103,13 @@ class DeleteButtonTest extends BaseTestCase
 
         $toolTipValue = false;
 
-        $buttonWithToolTip = $this->deleteButtonObjectWithRoute
+        $buttonWithToolTip = $this->editButtonObjectWithRoute
                             ->setToolTip($toolTipValue)
                             ->setToolTipPosition($toolTipPosition);
 
         $this->assertEquals($toolTipPosition, $buttonWithToolTip->getToolTipPosition());
         $this->assertEquals($toolTipValue, $buttonWithToolTip->getToolTip());
-        $this->assertEquals(2, count($buttonWithToolTip->getButtonOptionParameters()));
+        $this->assertEquals(1, count($buttonWithToolTip->getButtonOptionParameters()));
 
         $toolTipKeys = ['data-toggle', 'data-placement', 'title'];
 
@@ -127,7 +123,7 @@ class DeleteButtonTest extends BaseTestCase
     {
         $buttonIcon = Str::random(10);
 
-        $buttonWithToolTip = $this->deleteButtonObjectWithRoute
+        $buttonWithToolTip = $this->editButtonObjectWithRoute
                             ->setIcon($buttonIcon);
 
         $this->assertEquals($buttonIcon, $buttonWithToolTip->getIcon());
@@ -138,7 +134,7 @@ class DeleteButtonTest extends BaseTestCase
     {
         $buttonName = Str::random(10);
 
-        $buttonWithToolTip = $this->deleteButtonObjectWithRoute
+        $buttonWithToolTip = $this->editButtonObjectWithRoute
                             ->setButtonName($buttonName);
 
         $this->assertEquals($buttonName, $buttonWithToolTip->getButtonName());
@@ -149,48 +145,12 @@ class DeleteButtonTest extends BaseTestCase
     {
         $buttonClassNames = Str::random(10);
 
-        $buttonWithToolTip = $this->deleteButtonObjectWithRoute
+        $buttonWithToolTip = $this->editButtonObjectWithRoute
                             ->setClass($buttonClassNames);
 
         $this->assertEquals($buttonClassNames, $buttonWithToolTip->getClass());
     }
 
-    /** @test */
-    public function getCustomisedConfirmationDialog()
-    {
-        $confirmationDialog = Str::random(10);
-
-        $buttonWithToolTip = $this->deleteButtonObjectWithRoute
-                            ->setDeleteConfirmation($confirmationDialog);
-
-        $this->assertEquals($confirmationDialog, $buttonWithToolTip->getDeleteConfirmation());
-    }
-
-    /** @test */
-    public function disablesConfirmationDialog()
-    {
-        $confirmationDialog = false;
-
-        $buttonWithToolTip = $this->deleteButtonObjectWithRoute
-                            ->setDeleteConfirmation($confirmationDialog);
-
-        $this->assertEquals($confirmationDialog, $buttonWithToolTip->getDeleteConfirmation());
-    }
-
-    /** @test */
-    public function isNotAddingExtraStylingIfConformationIsDisabled()
-    {
-        $confirmationDialog = false;
-
-        $buttonWithToolTip = $this->deleteButtonObjectWithRoute
-                            ->setDeleteConfirmation($confirmationDialog);
-
-        $confirmButtonKeys = ['style', 'onSubmit'];
-
-        foreach ($confirmButtonKeys as  $eachconfirmButtonKeys) {
-            $this->assertArrayNotHasKey($eachconfirmButtonKeys, $buttonWithToolTip->getAtttributesForOpeningForm());
-        }
-    }
 
     /** @test */
     public function canCustomiseButtonNameAndIcon()
@@ -198,7 +158,7 @@ class DeleteButtonTest extends BaseTestCase
         $buttonName = Str::random(10);
         $buttonIcon = Str::random(10);
 
-        $buttonWithIconAndText = $this->deleteButtonObjectWithRoute
+        $buttonWithIconAndText = $this->editButtonObjectWithRoute
                                     ->setButtonName($buttonName)
                                     ->setIcon($buttonIcon)
                                     ->getButtonNameWithParameters();
@@ -213,12 +173,12 @@ class DeleteButtonTest extends BaseTestCase
 
         $disableIfValue = 'DISABLE';
 
-        $buttonWithDisabledCondition = $this->deleteButtonObjectWithRoute
+        $buttonWithDisabledCondition = $this->editButtonObjectWithRoute
                             ->disableIf($disableIfValue === "DISABLE");
 
         $this->assertArrayHasKey($disableKey, $buttonWithDisabledCondition->getButtonOptionParameters());
 
-        $buttonWithNotDisabledCondition = $this->deleteButtonObjectWithRoute
+        $buttonWithNotDisabledCondition = $this->editButtonObjectWithRoute
                             ->disableIf($disableIfValue !== "DISABLE");
         
         $this->assertArrayNotHasKey($disableKey, $buttonWithNotDisabledCondition->getButtonOptionParameters());
@@ -231,12 +191,12 @@ class DeleteButtonTest extends BaseTestCase
 
         $disableIfValue = 'DISABLE';
 
-        $buttonWithDisabledCondition = $this->deleteButtonObjectWithRoute
+        $buttonWithDisabledCondition = $this->editButtonObjectWithRoute
                             ->disableUnless($disableIfValue === "DISABLE");
 
         $this->assertArrayNotHasKey($disableKey, $buttonWithDisabledCondition->getButtonOptionParameters());
 
-        $buttonWithNotDisabledCondition = $this->deleteButtonObjectWithRoute
+        $buttonWithNotDisabledCondition = $this->editButtonObjectWithRoute
                             ->disableUnless($disableIfValue !== "DISABLE");
         
         $this->assertArrayHasKey($disableKey, $buttonWithNotDisabledCondition->getButtonOptionParameters());
@@ -247,12 +207,12 @@ class DeleteButtonTest extends BaseTestCase
     {
         $hideIfValue = 'HIDE';
 
-        $buttonWithHiddenCondition = $this->deleteButtonObjectWithRoute
+        $buttonWithHiddenCondition = $this->editButtonObjectWithRoute
                             ->hideIf($hideIfValue === "HIDE");
 
         $this->assertEquals('',$buttonWithHiddenCondition->get()->toHtml());
 
-        $buttonWithNotHiddedCondition = $this->deleteButtonObjectWithRoute
+        $buttonWithNotHiddedCondition = $this->editButtonObjectWithRoute
                             ->hideIf($hideIfValue !== "HIDE");
         
         $this->assertNotEquals('',$buttonWithNotHiddedCondition->get()->toHtml());
@@ -264,16 +224,14 @@ class DeleteButtonTest extends BaseTestCase
 
         $hideIfValue = 'HIDE';
 
-        $buttonWithHiddenCondition = $this->deleteButtonObjectWithRoute
+        $buttonWithHiddenCondition = $this->editButtonObjectWithRoute
                             ->hideUnless($hideIfValue === "HIDE");
 
         $this->assertNotEquals('',$buttonWithHiddenCondition->get()->toHtml());
 
-        $buttonWithNotDisabledCondition = $this->deleteButtonObjectWithRoute
+        $buttonWithNotDisabledCondition = $this->editButtonObjectWithRoute
                             ->hideUnless($hideIfValue !== "HIDE");
         
         $this->assertEquals('',$buttonWithNotDisabledCondition->get()->toHtml());
     }
-
-
 }

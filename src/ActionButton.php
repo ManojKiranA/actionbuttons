@@ -12,11 +12,18 @@
 namespace Manojkiran\ActionButtons;
 
 use Manojkiran\ActionButtons\Buttons\DeleteButton;
+use Collective\Html\FormFacade;
+use Manojkiran\ActionButtons\Buttons\EditButton;
 
 class ActionButton
 {
     public function delete()
     {
         return new DeleteButton();
+    }
+
+    public function edit()
+    {
+        return new EditButton();
     }
 }
