@@ -20,7 +20,7 @@ trait HideButton
      *
      * @return bool
      */
-    public function getHidesButton()
+    public function getHidesButton():bool
     {
         return $this->hidesButton;
     }
@@ -37,5 +37,47 @@ trait HideButton
         $this->hidesButton = $hidesButton;
 
         return $this;
+    }
+
+    /**
+     * Checks for the Condition and hides
+     * if the condition is passed.
+     *
+     * @param bool $hideIf
+     *
+     * @return $this
+     **/
+    public function hideIf(bool $hideIf)
+    {
+        if ($hideIf) {
+            $this->setHidesButton(true);
+
+            return $this;
+        } else {
+            $this->setHidesButton(false);
+
+            return $this;
+        }
+    }
+
+    /**
+     * Checks for the Condition and hides
+     * if the condition is not passed.
+     *
+     * @param bool $hideUnless
+     *
+     * @return $this
+     **/
+    public function hideUnless(bool $hideUnless)
+    {
+        if (!$hideUnless) {
+            $this->setHidesButton(true);
+
+            return $this;
+        } else {
+            $this->setHidesButton(false);
+
+            return $this;
+        }
     }
 }

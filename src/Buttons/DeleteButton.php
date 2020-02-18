@@ -334,9 +334,7 @@ class DeleteButton extends Button implements DeleteButtonContract
             $formButtonName = $this->buttonName;
         }
 
-        if ($formButtonIcon === null && $formButtonName === null) {
-            throw new ButtonNameAndIconNotSetException();
-        }
+        throw_if($formButtonIcon === null && $formButtonName === null,ButtonNameAndIconNotSetException::class);
 
         return $formButtonIcon.$formButtonName;
     }
