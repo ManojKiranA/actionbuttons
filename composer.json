@@ -12,9 +12,9 @@
     "minimum-stability": "dev",
     "prefer-stable" : true,
     "require": {
-        "illuminate/database": "^6.0",
-        "illuminate/support": "^6.0",
-        "laravelcollective/html": "^6.0"
+        "illuminate/database": "^6.0|^7.0",
+        "illuminate/support": "^6.0|^7.0",
+        "laravelcollective/html": "^6.0|^7.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^8.4|^9.0",
